@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="first">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" afterDir="false" />
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="first lombok">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/academy/Group.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/academy/Student.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August18Academy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +59,8 @@
       <option name="presentableId" value="Default" />
       <updated>1692206316706</updated>
       <workItem from="1692206317855" duration="2392000" />
-      <workItem from="1692281698932" duration="790000" />
+      <workItem from="1692281698932" duration="1162000" />
+      <workItem from="1692537224180" duration="2585000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -65,7 +70,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692208318320</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="first lombok">
+      <option name="closed" value="true" />
+      <created>1692282873887</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1692282873887</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -73,6 +86,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first" />
-    <option name="LAST_COMMIT_MESSAGE" value="first" />
+    <MESSAGE value="first lombok" />
+    <option name="LAST_COMMIT_MESSAGE" value="first lombok" />
   </component>
 </project>
