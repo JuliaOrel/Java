@@ -1,6 +1,15 @@
 package org.example.myHomeWork;
 
+import org.example.entities.DrawLiner;
+
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
+
+import static org.example.entities.ArraySorter.sortAscending;
+import static org.example.entities.ArraySorter.sortDescending;
+import static org.example.entities.DrawLiner.drawLine;
+
 public class August20HomeWork implements Runnable
 {
 
@@ -11,7 +20,13 @@ public class August20HomeWork implements Runnable
         //combineDigits();
         //swapDigits();
         //seasonChecker();
-        lengthConverter();
+        //lengthConverter();
+        //oddNumberInRange();
+        //multiplicationTable();
+        //operationtsWithArray();
+        //createNewArrays();
+        //draw();
+        sortArray();
     }
 
     private void textOut(){
@@ -165,6 +180,203 @@ public class August20HomeWork implements Runnable
         }
 
 
+    }
+    private void oddNumberInRange(){
+        System.out.println("Task 7 \n");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите начало диапазона: ");
+        int start = scanner.nextInt();
+
+        System.out.print("Введите конец диапазона: ");
+        int end = scanner.nextInt();
+
+        // Нормализация границ диапазона
+        if (start > end) {
+            int temp = start;
+            start = end;
+            end = temp;
+        }
+
+        System.out.println("Нечетные числа в диапазоне от " + start + " до " + end + ":");
+        for (int i = start; i <= end; i++) {
+            if (i % 2 != 0) {
+                System.out.println(i);
+            }
+        }
+
+    }
+
+    private void multiplicationTable(){
+        System.out.println("Task 8 \n");
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Введите начало диапазона: ");
+        int start = scanner.nextInt();
+
+        System.out.print("Введите конец диапазона: ");
+        int end = scanner.nextInt();
+
+        System.out.println("Таблица умножения в диапазоне от " + start + " до " + end + ":");
+
+        if (start > end) {
+            int temp = start;
+            start = end;
+            end = temp;
+        }
+
+        for (int i = start; i <= end; i++) {
+            for (int j = 1; j <= 10; j++) {
+                System.out.println(i + " * " + j + " = " + (i * j));
+            }
+            System.out.println("...........................");
+        }
+
+
+    }
+
+    private void operationtsWithArray(){
+        System.out.println("Task 9 \n");
+
+        int[] array = new int[10]; // размер массива
+        Random random = new Random();
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(101) - 50; // случайные числа от -50 до 50
+        }
+
+        // Инициализируем переменные для хранения результатов
+        int min = array[0];
+        int max = array[0];
+        int negativeCount = 0;
+        int positiveCount = 0;
+        int zeroCount = 0;
+
+        for (int num : array) {
+            if (num < min) {
+                min = num;
+            }
+            if (num > max) {
+                max = num;
+            }
+            if (num < 0) {
+                negativeCount++;
+            } else if (num > 0) {
+                positiveCount++;
+            } else {
+                zeroCount++;
+            }
+        }
+
+        // Выводим результаты на экран
+        System.out.println("Массив:");
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nМинимальный элемент: " + min);
+        System.out.println("Максимальный элемент: " + max);
+        System.out.println("Количество отрицательных элементов: " + negativeCount);
+        System.out.println("Количество положительных элементов: " + positiveCount);
+        System.out.println("Количество нулей: " + zeroCount);
+
+    }
+
+    private void createNewArrays(){
+        System.out.println("Task 10 \n");
+
+        int[]array=new int[10];
+        Random random=new Random();
+        for(int i=0; i < array.length; i++){
+            array[i]=random.nextInt(101)-50;
+        }
+
+        int[]evenArray=new int[array.length];
+        int[]oddArray =new int[array.length];
+        int[]negativeArray =new int[array.length];
+        int[]positiveArray =new int[array.length];
+
+        int evenCount = 0;
+        int oddCount = 0;
+        int negativeCount = 0;
+        int positiveCount = 0;
+
+        for(int num: array){
+            if (num % 2 == 0) {
+
+                evenArray[evenCount++]=num;
+            }
+            else{
+                oddArray[oddCount++]=num;
+            }
+            if(num<0){
+                negativeArray[negativeCount++]=num;
+            }else if(num>0){
+                positiveArray[positiveCount++]=num;
+            }
+        }
+
+        // Создаем и заполняем новые массивы с учетом размеров фильтрованных массивов
+        int[] finalEvenArray = new int[evenCount];
+        System.arraycopy(evenArray, 0, finalEvenArray, 0, evenCount);
+
+        int[] finalOddArray = new int[oddCount];
+        System.arraycopy(oddArray, 0, finalOddArray, 0, oddCount);
+
+        int[] finalNegativeArray = new int[negativeCount];
+        System.arraycopy(negativeArray, 0, finalNegativeArray, 0, negativeCount);
+
+        int[] finalPositiveArray = new int[positiveCount];
+        System.arraycopy(positiveArray, 0, finalPositiveArray, 0, positiveCount);
+
+        // Выводим результаты на экран
+        System.out.println("Исходный массив:");
+        for (int num : array) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nЧетные числа:");
+        for (int num : finalEvenArray) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nНечетные числа:");
+        for (int num : finalOddArray) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nОтрицательные числа:");
+        for (int num : finalNegativeArray) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nПоложительные числа:");
+        for (int num : finalPositiveArray) {
+            System.out.print(num + " ");
+        }
+
+    }
+
+    private void draw(){
+        System.out.println("Task 11 \n");
+
+        drawLine(10, "horizontal", '*');
+        drawLine(5, "vertical", '#');
+    }
+
+    private void sortArray(){
+        System.out.println("Task 12 \n");
+        Scanner scanner = new Scanner(System.in);
+        int[]array=new int [10];
+        Random random=new Random();
+        for(int i=0; i<array.length;i++){
+            array[i]=random.nextInt(201);
+        }
+        System.out.print("Enter sorting order (asc/desc): ");
+        String order = scanner.next();
+
+        if (order.equalsIgnoreCase("asc")) {
+            sortAscending(array);
+            System.out.println("Sorted array in ascending order: " + Arrays.toString(array));
+        } else if (order.equalsIgnoreCase("desc")) {
+            sortDescending(array);
+            System.out.println("Sorted array in descending order: " + Arrays.toString(array));
+        } else {
+            System.out.println("Invalid sorting order. Please use 'asc' or 'desc'.");
+        }
     }
 
 
