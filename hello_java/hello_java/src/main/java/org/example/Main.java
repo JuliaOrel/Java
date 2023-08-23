@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.entities.User;
 import org.example.myClassWork.August18Academy;
+import org.example.myClassWork.August18Button;
 
 /*
 F:\Java_jdk\jdk-17\bin\java.exe
@@ -16,7 +17,8 @@ public class Main {
 //        User u=new User();
 //        u.setEmail("yy0709@ukr.net");
 //        u.setPassword("j23j145");
-        August18Academy work=new August18Academy();
-        work.run();
+        //August18Academy work=new August18Academy();
+        August18Button button=new August18Button();
+        button.run();
     }
 }
