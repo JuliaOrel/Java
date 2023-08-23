@@ -1,5 +1,7 @@
 package org.example.entities;
 
+import org.example.exceptions.DivisionByZeroValidation;
+
 public class Fraction {
     private int numerator;
     private int denominator;
@@ -9,9 +11,9 @@ public class Fraction {
         this.denominator=1;
     }
 
-    public Fraction(int numerator, int denominator){
+    public Fraction(int numerator, int denominator) throws DivisionByZeroValidation {
         if(denominator==0){
-            throw new IllegalArgumentException("Denominator cannot be zero");
+            throw new DivisionByZeroValidation("Denominator cannot be zero");
         }
         this.numerator=numerator;
         this.denominator=denominator;
@@ -22,7 +24,7 @@ public class Fraction {
         this.denominator=1;
     }
 
-    public void setFraction(int numerator, int denominator){
+    public void setFraction(int numerator, int denominator) throws DivisionByZeroValidation {
         Fraction frc=new Fraction(numerator, denominator);
         this.numerator=numerator;
         this.denominator=denominator;

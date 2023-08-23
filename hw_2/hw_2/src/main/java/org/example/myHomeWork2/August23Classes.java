@@ -2,6 +2,7 @@ package org.example.myHomeWork2;
 
 import org.example.entities.Fraction;
 import org.example.entities.Person;
+import org.example.exceptions.DivisionByZeroValidation;
 
 public class August23Classes implements Runnable {
 
@@ -21,7 +22,14 @@ public class August23Classes implements Runnable {
         Fraction fraction=new Fraction();
         System.out.println("Original fraction: "+ fraction);
 
-        fraction.setFraction(3,5);
+        try {
+            fraction.setFraction(3,5);
+        } catch (DivisionByZeroValidation e) {
+            System.out.println("You can't divide by 0");
+        }
+        System.out.println("Updated fraction: "+ fraction);
+
+        fraction.setFraction(4);
         System.out.println("Updated fraction: "+ fraction);
     }
 }
