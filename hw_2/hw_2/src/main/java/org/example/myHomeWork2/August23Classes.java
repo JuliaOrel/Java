@@ -1,6 +1,7 @@
 package org.example.myHomeWork2;
 
 import org.example.entities.Book;
+import org.example.entities.Car;
 import org.example.entities.Fraction;
 import org.example.entities.Person;
 import org.example.exceptions.DivisionByZeroValidation;
@@ -34,20 +35,34 @@ public class August23Classes implements Runnable {
 
         fraction.setFraction(4);
         System.out.println("Updated fraction: "+ fraction);
+        System.out.println();
 
         //Book
-        Book book1 = new Book();
-        book1.setTitle("The Grand Chessboard");
-        book1.setAuthor("Zbigniew Brzezinski.");
-        book1.setYear(1997);
-        book1.setPublisher("Basic Books");
-        book1.setGenre("\tGeopolitics");
-        book1.setPageCount(223);
+//        Book book1 = new Book();
+//        book1.setTitle("The Grand Chessboard");
+//        book1.setAuthor("Zbigniew Brzezinski.");
+//        book1.setYear(1997);
+//        book1.setPublisher("Basic Books");
+//        book1.setGenre("\tGeopolitics");
+//        book1.setPageCount(223);
+//
+//        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", 1960, "HarperCollins", "Fiction", 324);
+//
+//        book1.displayInfo();
+//        System.out.println();
+//        book2.displayInfo();
 
-        Book book2 = new Book("To Kill a Mockingbird", "Harper Lee", 1960, "HarperCollins", "Fiction", 324);
+        //Car
+        Car car1 = new Car();
+        car1.setName("MINI John Cooper Works");
+        car1.setManufacturer("BMW");
+        car1.setYear(2019);
+        car1.setEngineVolume(7.1);
 
-        book1.displayInfo();
+        Car car2 = new Car("Honda Civic", "Honda", 2021, 1.5);
+
+        car1.displayInfo();
         System.out.println();
-        book2.displayInfo();
+        car2.displayInfo();
     }
 }
