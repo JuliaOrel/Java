@@ -1,9 +1,7 @@
 package org.example;
 
 import org.example.entities.User;
-import org.example.myClassWork.August18Academy;
-import org.example.myClassWork.August18Button;
-import org.example.myClassWork.August18Collection;
+import org.example.myClassWork.*;
 
 /*
 F:\Java_jdk\jdk-17\bin\java.exe
@@ -21,7 +19,15 @@ public class Main {
         //August18Academy work=new August18Academy();
         //August18Button button=new August18Button();
         //button.run();
-        August18Collection collection=new August18Collection();
-        collection.run();
+
+
+//        August18Collection collection=new August18Collection();
+//        collection.run();
+
+//        August19Stream work =new August19Stream();
+//        work.run();
+
+        August19Posts work=new August19Posts();
+        work.run();
     }
 }
