@@ -5,7 +5,7 @@ import org.example.entities.academy.Student;
 import org.example.exceptions.validation.NameLengthValidationMax;
 import org.example.exceptions.validation.NameLengthValidationMin;
 
-public class August18Academy implements Runnable
+public class August18Button implements Runnable
 {
     @Override
     public void run() {
