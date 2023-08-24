@@ -8,5 +8,11 @@ import java.util.ArrayList;
 public class Category {
     private String title;
     private String slug;
+
     ArrayList<Post> posts=new ArrayList<>();
+
+    @Override
+    public String toString(){
+        return "Category: {title="+this.title+ " }";
+    }
 }

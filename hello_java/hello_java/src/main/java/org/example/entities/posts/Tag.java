@@ -10,4 +10,9 @@ public class Tag {
     private String slug;
 
     ArrayList<Post>posts=new ArrayList<>();
+
+    @Override
+    public String toString(){
+        return "Tag: {title="+this.title+ " }";
+    }
 }
