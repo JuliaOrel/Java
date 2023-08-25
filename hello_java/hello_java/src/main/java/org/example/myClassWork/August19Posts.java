@@ -88,37 +88,61 @@ public class August19Posts implements Runnable{
             System.out.println(p);
         }
 
-        //delete
-        System.out.println("\n\n---------\n Lets delete one post");
-        posts.remove(p1);
-        p1.getCategory().getPosts().remove(p1);
-        for(Tag t: p1.getTags()){
-            t.getPosts().remove(p1);
+        //......................................................
+        String findTag=tOdesa.getTitle();
+        System.out.println("Search posts, where tag = "+findTag);
+        for(Post p:posts){
+            for(Tag t: p.getTags()){
+                if(t.getTitle()==findTag){
+                    System.out.println(p);
+                }
+            }
         }
+         System.out.println("Search posts, where title contains news");
+        posts.stream().filter(post -> post.getTitle().contains("news")).forEach(post -> {
+            System.out.println(post);
+        });
+
+        System.out.println("------------------------------------------");
+        System.out.println("Search posts, where tag = "+ findTag);
+        posts.stream()
+                .filter(post -> post.getTags().stream()
+                        .anyMatch(tag -> tag.getTitle().contains(findTag)))
+                .parallel()
+                .forEach(post -> {
+                    System.out.println(post);
+                });
+        //delete
+//        System.out.println("\n\n---------\n Lets delete one post");
+//        posts.remove(p1);
+//        p1.getCategory().getPosts().remove(p1);
+//        for(Tag t: p1.getTags()){
+//            t.getPosts().remove(p1);
+//        }
 
         //Get all posts(new for the first)
-        System.out.println(posts);
-
-        //Get posts by categories
-        System.out.println("Category" + cNews.getTitle());
-        for(Post p:cNews.getPosts()){
-            System.out.println(p);
-        }
-
-        System.out.println("Category" + cPromo.getTitle());
-        for(Post p:cPromo.getPosts()){
-            System.out.println(p);
-        }
-
-        //Get posts by tags
-        System.out.println("Tag" + tOdesa.getTitle());
-        for(Post p:tOdesa.getPosts()){
-            System.out.println(p);
-        }
-
-        System.out.println("Tag" + tMykolaiv.getTitle());
-        for(Post p:tMykolaiv.getPosts()){
-            System.out.println(p);
-        }
+//        System.out.println(posts);
+//
+//        //Get posts by categories
+//        System.out.println("Category" + cNews.getTitle());
+//        for(Post p:cNews.getPosts()){
+//            System.out.println(p);
+//        }
+//
+//        System.out.println("Category" + cPromo.getTitle());
+//        for(Post p:cPromo.getPosts()){
+//            System.out.println(p);
+//        }
+//
+//        //Get posts by tags
+//        System.out.println("Tag" + tOdesa.getTitle());
+//        for(Post p:tOdesa.getPosts()){
+//            System.out.println(p);
+//        }
+//
+//        System.out.println("Tag" + tMykolaiv.getTitle());
+//        for(Post p:tMykolaiv.getPosts()){
+//            System.out.println(p);
+//        }
     }
 }
