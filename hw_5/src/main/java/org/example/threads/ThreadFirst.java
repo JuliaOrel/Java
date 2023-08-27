@@ -17,7 +17,7 @@ public class ThreadFirst implements Runnable{
 
         Thread sumThread = new Thread(() -> {
             try {
-                fillThread.join();
+                fillThread.join(); //блокировка sumThread, пока не выполнится fillThread
                 int sum = 0;
                 for (int num : array) {
                     sum += num;
@@ -30,7 +30,7 @@ public class ThreadFirst implements Runnable{
 
         Thread avgThread = new Thread(() -> {
             try {
-                fillThread.join();
+                fillThread.join(); //блокировка avgThread, пока не выполнится fillThread
                 int sum = 0;
                 for (int num : array) {
                     sum += num;
@@ -47,7 +47,7 @@ public class ThreadFirst implements Runnable{
         avgThread.start();
 
         try {
-            fillThread.join();
+            fillThread.join(); //блокировка main, пока все они не выполнятся
             sumThread.join();
             avgThread.join();
         } catch (InterruptedException e) {
