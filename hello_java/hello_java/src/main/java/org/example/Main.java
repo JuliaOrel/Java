@@ -27,7 +27,13 @@ public class Main {
 //        August19Stream work =new August19Stream();
 //        work.run();
 
-        August19Posts work=new August19Posts();
+//        August19Posts work=new August19Posts();
+//        work.run();
+
+        August25Threads work=new August25Threads();
         work.run();
+
+        Thread t=Thread.currentThread();
+        System.out.println("Finish app in thread "+ t.getName());
     }
 }
