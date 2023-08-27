@@ -30,7 +30,10 @@ public class Main {
 //        August19Posts work=new August19Posts();
 //        work.run();
 
-        August25Threads work=new August25Threads();
+        //August25Threads work=new August25Threads();
+        //work.run();
+
+        August26Threads work=new August26Threads();
         work.run();
 
         Thread t=Thread.currentThread();

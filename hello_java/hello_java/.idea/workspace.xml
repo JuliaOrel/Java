@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Student Group">
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/src/main/java/org/example/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../hw_1/hw_1/src/main/java/org/example/myHomeWork/August20HomeWork.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August26Threads.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,10 +24,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: -1
-}</component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 4
+}]]></component>
   <component name="ProjectId" id="2U4kc4TrsuFJzKEZ2z6vFPWnfA7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -50,6 +45,9 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -64,6 +62,7 @@
       <workItem from="1692206317855" duration="2392000" />
       <workItem from="1692281698932" duration="1162000" />
       <workItem from="1692537224180" duration="3507000" />
+      <workItem from="1693144765658" duration="2444000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
