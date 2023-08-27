@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Student Group">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August26Threads.java" afterDir="false" />
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Threads">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
       <workItem from="1692206317855" duration="2392000" />
       <workItem from="1692281698932" duration="1162000" />
       <workItem from="1692537224180" duration="3507000" />
-      <workItem from="1693144765658" duration="2444000" />
+      <workItem from="1693144765658" duration="3329000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -88,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1692539992687</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Threads">
+      <option name="closed" value="true" />
+      <created>1693147485132</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1693147485132</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -98,6 +104,7 @@
     <MESSAGE value="first" />
     <MESSAGE value="first lombok" />
     <MESSAGE value="Student Group" />
-    <option name="LAST_COMMIT_MESSAGE" value="Student Group" />
+    <MESSAGE value="Threads" />
+    <option name="LAST_COMMIT_MESSAGE" value="Threads" />
   </component>
 </project>
