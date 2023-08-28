@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.example.threads.entities.SearchThread.countSearchWords;
+
 public class ThreadSecond implements Runnable{
     @Override
     public void run() {
@@ -54,6 +56,7 @@ public class ThreadSecond implements Runnable{
             }
 
             System.out.println("Статистика: ..."); // Вывод статистики
+            System.out.println("Количество упоминаний искомого слова: "+ countSearchWords);
         } catch (IOException e) {
             e.printStackTrace();
         }

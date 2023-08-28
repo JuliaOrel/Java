@@ -6,6 +6,7 @@ import java.util.List;
 public class SearchThread implements Runnable{
     private List<String> fileList;
     private String searchWord;
+    public static int countSearchWords;
     private StringBuilder mergedContent = new StringBuilder();
 
     public SearchThread(List<String> fileList, String searchWord) {
@@ -20,6 +21,7 @@ public class SearchThread implements Runnable{
                 String line;
                 while ((line = reader.readLine()) != null) {
                     if (line.contains(searchWord)) {
+                        countSearchWords++;
                         mergedContent.append(line).append("\n");
                     }
                 }
