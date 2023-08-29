@@ -33,10 +33,13 @@ public class Main {
         //August25Threads work=new August25Threads();
         //work.run();
 
-        August26Threads work=new August26Threads();
-        work.run();
+//        August26Threads work=new August26Threads();
+//        work.run();
+//
+//        Thread t=Thread.currentThread();
+//        System.out.println("Finish app in thread "+ t.getName());
 
-        Thread t=Thread.currentThread();
-        System.out.println("Finish app in thread "+ t.getName());
+        August29Files work=new August29Files();
+        work.run();
     }
 }
