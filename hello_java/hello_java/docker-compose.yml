@@ -1,5 +1,35 @@
 version: '3'
 
+services:
+  java.db.mysql:
+    image: mysql:8.0.34
+    environment:
+      SERVER_NAME: java.db.mysql
+    env_file:
+      - .env
+    ports:
+      - "30121:3306"
+    volumes:
+      - ./volumes/java.db.mysql:/var/lib/mysql
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+  pma:
+    image: phpmyadmin
+    ports:
+      - "30122:80"
+    environment:
+      PMA_HOST: java.db.mysql
+      PMA_PORT: 3306
+
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+
 networks:
   pv121_java:
     driver: bridge
