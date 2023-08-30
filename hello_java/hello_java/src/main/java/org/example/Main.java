@@ -39,7 +39,10 @@ public class Main {
 //        Thread t=Thread.currentThread();
 //        System.out.println("Finish app in thread "+ t.getName());
 
-        August29Files work=new August29Files();
+//        August29Files work=new August29Files();
+//        work.run();
+
+        August30DB work=new August30DB();
         work.run();
     }
 }
