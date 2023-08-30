@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Files classwork">
-      <change afterPath="$PROJECT_DIR$/human.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/humans.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="List serial and deserial">
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August29Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August29Files.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +67,7 @@
       <workItem from="1693144765658" duration="3329000" />
       <workItem from="1693234640117" duration="5577000" />
       <workItem from="1693327866242" duration="5572000" />
-      <workItem from="1693404218535" duration="1366000" />
+      <workItem from="1693404218535" duration="1689000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -120,7 +117,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693347720767</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="List serial and deserial">
+      <option name="closed" value="true" />
+      <created>1693406494548</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1693406494548</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,6 +139,7 @@
     <MESSAGE value="Threads" />
     <MESSAGE value="semaphore" />
     <MESSAGE value="Files classwork" />
-    <option name="LAST_COMMIT_MESSAGE" value="Files classwork" />
+    <MESSAGE value="List serial and deserial" />
+    <option name="LAST_COMMIT_MESSAGE" value="List serial and deserial" />
   </component>
 </project>

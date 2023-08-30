@@ -12,6 +12,7 @@ import java.util.List;
 
 public class August29Files implements Runnable{
    private String filePath = "humans.json";
+   private String filePathBin = "persons.bin";
     @Override
     public void run() {
         //writeFile();
@@ -21,7 +22,35 @@ public class August29Files implements Runnable{
         //saveObjToJson();
         //loadObjFromJson();
         //saveListToJson();
-        loadListFromJson();
+        //loadListFromJson();
+        //saveListToBinary();
+        loadListFromBinary();
+    }
+
+    private void loadListFromBinary() {
+        List<Person> persons = new ArrayList<>();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(filePathBin))) {
+            persons = (List<Person>) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        for (Person person : persons) {
+            System.out.printf("Name: %s \t Age: %d\n",
+                    person.getName(), person.getAge());
+        }
+    }
+
+    private void saveListToBinary() {
+        List<Person> persons = new ArrayList<>();
+        persons.add(new Person("Alice", 25));
+        persons.add(new Person("Bob", 30));
+
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePathBin))) {
+            oos.writeObject(persons);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void saveListToJson() {
