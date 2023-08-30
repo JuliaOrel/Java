@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="semaphore">
-      <change afterPath="$PROJECT_DIR$/person.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/files/Human.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/files/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August29Files.java" afterDir="false" />
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Files classwork">
+      <change afterPath="$PROJECT_DIR$/human.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/humans.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August29Files.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/August29Files.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,25 +37,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/User/IdeaProjects/Java/hw_1",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/Java/hw_1&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -72,7 +69,8 @@
       <workItem from="1692537224180" duration="3507000" />
       <workItem from="1693144765658" duration="3329000" />
       <workItem from="1693234640117" duration="5577000" />
-      <workItem from="1693327866242" duration="5463000" />
+      <workItem from="1693327866242" duration="5572000" />
+      <workItem from="1693404218535" duration="1366000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -114,7 +112,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693249673075</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Files classwork">
+      <option name="closed" value="true" />
+      <created>1693347720767</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1693347720767</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +133,7 @@
     <MESSAGE value="Student Group" />
     <MESSAGE value="Threads" />
     <MESSAGE value="semaphore" />
-    <option name="LAST_COMMIT_MESSAGE" value="semaphore" />
+    <MESSAGE value="Files classwork" />
+    <option name="LAST_COMMIT_MESSAGE" value="Files classwork" />
   </component>
 </project>

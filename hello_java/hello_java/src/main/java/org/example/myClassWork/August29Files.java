@@ -1,13 +1,17 @@
 package org.example.myClassWork;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entities.files.Human;
 import org.example.entities.files.Person;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 public class August29Files implements Runnable{
+   private String filePath = "humans.json";
     @Override
     public void run() {
         //writeFile();
@@ -15,7 +19,39 @@ public class August29Files implements Runnable{
         //saveObj();
         //loadObj();
         //saveObjToJson();
-        loadObjFromJson();
+        //loadObjFromJson();
+        //saveListToJson();
+        loadListFromJson();
+    }
+
+    private void saveListToJson() {
+        List<Human> humans = new ArrayList<>();
+        humans.add(new Human("Samanta", 45, true));
+        humans.add(new Human("John", 30, false));
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try (FileWriter fileWriter = new FileWriter(filePath)) {
+            objectMapper.writeValue(fileWriter, humans);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadListFromJson() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Human> loadedHumans=new ArrayList<>();
+        try (FileReader fileReader = new FileReader(filePath)) {
+            TypeReference<List<Human>> typeReference = new TypeReference<List<Human>>() {};
+            loadedHumans= objectMapper.readValue(fileReader, typeReference);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        for (Human human : loadedHumans) {
+            System.out.printf("Name: %s \t Age: %d \t Is Married: %b\n",
+                    human.getName(), human.getAge(), human.isMarried());
+        }
     }
 
     private void saveObjToJson(){
