@@ -1,0 +1,5 @@
+version: '3'
+
+networks:
+  pv121_java:
+    driver: bridge
