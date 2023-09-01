@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Redis">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September_01_Mongo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-    </list>
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Mongo" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +75,7 @@
       <workItem from="1693404218535" duration="5164000" />
       <workItem from="1693413586300" duration="3830000" />
       <workItem from="1693571028095" duration="1767000" />
-      <workItem from="1693585050518" duration="4713000" />
+      <workItem from="1693585050518" duration="5127000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -196,7 +189,15 @@
       <option name="project" value="LOCAL" />
       <updated>1693586653591</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Mongo">
+      <option name="closed" value="true" />
+      <created>1693590183169</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1693590183169</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +214,7 @@
     <MESSAGE value="List serial and deserial" />
     <MESSAGE value="DB start" />
     <MESSAGE value="Redis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Redis" />
+    <MESSAGE value="Mongo" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mongo" />
   </component>
 </project>
