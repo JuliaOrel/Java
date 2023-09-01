@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+
+  # Имя контейнера
+  java.db.mysql:
+    # https://hub.docker.com/_/mysql
+    # Я выбираю имидж для создания контейнера на основе предложений с офицального сайта
+    image: mysql:8.0.34
+
+    # раздел системных переменных (обязательных для настройки контейнера)
+    environment:
+      SERVER_NAME: java.db.mysql
+
+    # красивее и надежнее хранить настройки контейнеров в отдельном файле
+    env_file:
+      - .env
+
+
+    # Для того, что бы внешние системы могли заходить на эту базу данных - я предоставлю порт
+    # через который я смогу проводить операции
+    ports:
+      - "30121:3306"
+
+    # Для удобства я предоставлю отдельную папку - где будут храниться файлы самой базы данных
+    volumes:
+      - ./volumes/java.db.mysql:/var/lib/mysql
+
+    # Параметры доступности сетей для данного контейнера (не обязателбьный параметр)
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+  # Для удобства я разверну систему просмотра базы данных PhpMyAdmin в отдельном контейнере
+  pma:
+    # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin
+    # Порт, по которому я буду ходить что бы просматривать базу данных
+    ports:
+      - "30122:80"
+    # Параметры -  к какой базе мне подключаться
+    environment:
+      PMA_HOST: java.db.mysql
+      PMA_PORT: 3306
+
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
+networks:
+  pv121_java:
+    driver: bridge
