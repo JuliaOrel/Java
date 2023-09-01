@@ -60,6 +60,9 @@ public class September_hw_6_db implements Runnable{
                     displayMenuFunct();
                     break;
                 case 7:
+                    displayMenuFilters();
+                    break;
+                case 8:
                     return; // Выход из метода
                 default:
                     System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
@@ -311,6 +314,105 @@ public class September_hw_6_db implements Runnable{
                 String model = resultSet.getString("model");
                 // Другие поля...
                 System.out.println("Производитель: " + manufacturer + ", Модель: " + model);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayMenuFilters() throws SQLException{
+        if(connection!=null){
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                System.out.println("Make your choice:");
+                System.out.println("1. Display all cars by manufacturer");
+                System.out.println("2. Filter by color");
+                System.out.println("3. Filter by engine");
+                System.out.println("4. Filter by car type");
+                System.out.println("5. Exit");
+
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        displayCarsByManufacturer();
+                        break;
+                    case 2:
+                        displayCarsByColor();
+                        break;
+                    case 3:
+                        //displayCarsByYear();
+                        break;
+                    case 4:
+                        //displayCarsByRange();
+                        break;
+                    case 5:
+                        return; // Выход из метода
+                    default:
+                        System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+                }
+            }
+        }
+        else{
+            System.out.println("Connect to DB");
+        }
+
+    }
+
+    private void displayCarsByManufacturer() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input manufacturer: ");
+        String manufacturer=scanner.next();
+        String sqlQuery = "SELECT * FROM cars WHERE manufacturer = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, manufacturer);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String model = resultSet.getString("model");
+                double engineVolume = resultSet.getDouble("engineVolume");
+                int manufactureYear = resultSet.getInt("manufactureYear");
+                String color = resultSet.getString("color");
+                String carType = resultSet.getString("carType");
+
+                System.out.println("ID: " + id);
+                System.out.println("Модель: " + model);
+                System.out.println("Объем двигателя: " + engineVolume);
+                System.out.println("Год выпуска: " + manufactureYear);
+                System.out.println("Цвет: " + color);
+                System.out.println("Тип автомобиля: " + carType);
+                System.out.println("------------------------------");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayCarsByColor() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input color: ");
+        String color=scanner.next();
+        String sqlQuery = "SELECT * FROM cars WHERE color = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, color);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String manufacturer = resultSet.getString("manufacturer");
+                String model = resultSet.getString("model");
+                double engineVolume = resultSet.getDouble("engineVolume");
+                int manufactureYear = resultSet.getInt("manufactureYear");
+                String carType = resultSet.getString("carType");
+
+                System.out.println("ID: " + id);
+                System.out.println("Производитель: " + manufacturer);
+                System.out.println("Модель: " + model);
+                System.out.println("Объем двигателя: " + engineVolume);
+                System.out.println("Год выпуска: " + manufactureYear);
+                System.out.println("Тип автомобиля: " + carType);
+                System.out.println("------------------------------");
             }
         } catch (SQLException e) {
             e.printStackTrace();
