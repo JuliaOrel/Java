@@ -217,7 +217,8 @@ public class September_hw_6_db implements Runnable{
                 System.out.println("1. Display manufacturer with most cars");
                 System.out.println("2. Display manufacturer with least cars");
                 System.out.println("3. Display cars by year");
-                System.out.println("4. Exit");
+                System.out.println("4. Display cars with the year in range");
+                System.out.println("5. Exit");
 
                 int choice = scanner.nextInt();
 
