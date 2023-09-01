@@ -2,6 +2,7 @@ package org.example.September_01_hw_db;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
+import java.net.StandardSocketOptions;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -9,14 +10,14 @@ public class September_hw_6_db implements Runnable{
     private Connection connection;
     @Override
     public void run() {
-        //ConnectToDb();
+        ConnectToDb();
         try {
             displayMenu();
         } catch (SQLException e) {
             System.out.println("Something wrong"+e.getMessage());
         }
         //migrate();
-        //insertCar("Toyota", "Camry", 2.5, 2022, "Silver", "Sedan");
+        //insertCar("Toyota", "Corolla", 2.5, 2022, "Silver", "Sedan");
         //("BMW", "X5", 3.0, 2023, "Black", "SUV");
         //insertCar("Audi", "A4", 2.0, 2023, "Silver", "Sedan");
         //insertCar("Mercedes-Benz", "E-Class", 3.0, 2023, "Blue", "Sedan");
@@ -32,7 +33,10 @@ public class September_hw_6_db implements Runnable{
             System.out.println("3. Display all cars");
             System.out.println("4. Display all manufacturers");
             System.out.println("5. Display all manufacturers and amount of cars");
-            System.out.println("6. Exit");
+            System.out.println("6. Functions");
+            System.out.println("7. Filters");
+            System.out.println("8. Settings");
+            System.out.println("9. Exit");
 
             int choice = scanner.nextInt();
 
@@ -53,6 +57,9 @@ public class September_hw_6_db implements Runnable{
                     displayManufacturersAndCounts();
                     break;
                 case 6:
+                    displayMenuFunct();
+                    break;
+                case 7:
                     return; // Выход из метода
                 default:
                     System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
@@ -199,5 +206,113 @@ public class September_hw_6_db implements Runnable{
             System.out.println("Coonect to DB");
         }
 
+    }
+
+    private void displayMenuFunct() throws SQLException{
+        if(connection!=null){
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                System.out.println("Make your choice:");
+                System.out.println("1. Display manufacturer with most cars");
+                System.out.println("2. Display manufacturer with least cars");
+                System.out.println("3. Display cars by year");
+                System.out.println("4. Exit");
+
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        displayManufacturerWithMostCars();
+                        break;
+                    case 2:
+                        displayManufacturerWithLeastCars();
+                        break;
+                    case 3:
+                        displayCarsByYear();
+                        break;
+                    case 4:
+                        displayCarsByRange();
+                        break;
+                    case 5:
+                        return; // Выход из метода
+                    default:
+                        System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+                }
+            }
+        }
+        else{
+            System.out.println("Connect to DB");
+        }
+
+    }
+
+    private void displayManufacturerWithMostCars() {
+        String sqlQuery = "SELECT manufacturer, COUNT(*) AS carCount FROM cars GROUP BY manufacturer HAVING COUNT(*) = (SELECT MAX(carCount) FROM (SELECT COUNT(*) AS carCount FROM cars GROUP BY manufacturer) AS carCounts)";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sqlQuery)) {
+            while (resultSet.next()) {
+                String manufacturer = resultSet.getString("manufacturer");
+                int carCount = resultSet.getInt("carCount");
+                System.out.println("Производитель с наибольшим количеством автомобилей: " + manufacturer + " (" + carCount + " автомобилей)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayManufacturerWithLeastCars() {
+        String sqlQuery = "SELECT manufacturer, COUNT(*) AS carCount FROM cars GROUP BY manufacturer HAVING COUNT(*) = (SELECT MIN(carCount) FROM (SELECT COUNT(*) AS carCount FROM cars GROUP BY manufacturer) AS carCounts)";
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(sqlQuery)) {
+            while (resultSet.next()) {
+                String manufacturer = resultSet.getString("manufacturer");
+                int carCount = resultSet.getInt("carCount");
+                System.out.println("Производитель с наименьшим количеством автомобилей: " + manufacturer + " (" + carCount + " автомобилей)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayCarsByYear() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input year");
+        int year = scanner.nextInt();
+        String sqlQuery = "SELECT * FROM cars WHERE manufactureYear = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setInt(1, year);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String manufacturer = resultSet.getString("manufacturer");
+                String model = resultSet.getString("model");
+                // Другие поля...
+                System.out.println("Производитель: " + manufacturer + ", Модель: " + model);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayCarsByRange(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input start year");
+        int startYear=scanner.nextInt();
+        System.out.println("Input end year");
+        int endYear=scanner.nextInt();
+        String sqlQuery = "SELECT * FROM cars WHERE manufactureYear BETWEEN ? AND ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setInt(1, startYear);
+            preparedStatement.setInt(2, endYear);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                String manufacturer = resultSet.getString("manufacturer");
+                String model = resultSet.getString("model");
+                // Другие поля...
+                System.out.println("Производитель: " + manufacturer + ", Модель: " + model);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
