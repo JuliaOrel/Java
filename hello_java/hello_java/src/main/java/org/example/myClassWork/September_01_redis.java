@@ -12,6 +12,7 @@ public class September_01_redis implements Runnable{
         Jedis redis=new Jedis("localhost", 6379);
         //Put into server data
         redis.set("SomeKey", "SomeValue");
+        redis.expire("SomeKey",60);
         String val=redis.get("SomeKey");
         System.out.println("SomeVal= "+val);
     }
