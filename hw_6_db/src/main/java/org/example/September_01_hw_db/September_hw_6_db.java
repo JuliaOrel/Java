@@ -342,7 +342,7 @@ public class September_hw_6_db implements Runnable{
                         displayCarsByColor();
                         break;
                     case 3:
-                        //displayCarsByYear();
+                        displayCarsByEngineVolume();
                         break;
                     case 4:
                         //displayCarsByRange();
@@ -417,5 +417,38 @@ public class September_hw_6_db implements Runnable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        }
+    private void displayCarsByEngineVolume() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input min volume");
+        double minVolume=scanner.nextDouble();
+        System.out.println("Input max volume");
+        double maxVolume=scanner.nextDouble();
+        String sqlQuery = "SELECT * FROM cars WHERE engineVolume BETWEEN ? AND ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setDouble(1, minVolume);
+            preparedStatement.setDouble(2, maxVolume);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String manufacturer = resultSet.getString("manufacturer");
+                String model = resultSet.getString("model");
+                int manufactureYear = resultSet.getInt("manufactureYear");
+                String color = resultSet.getString("color");
+                String carType = resultSet.getString("carType");
+
+                System.out.println("ID: " + id);
+                System.out.println("Производитель: " + manufacturer);
+                System.out.println("Модель: " + model);
+                System.out.println("Год выпуска: " + manufactureYear);
+                System.out.println("Цвет: " + color);
+                System.out.println("Тип автомобиля: " + carType);
+                System.out.println("------------------------------");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 }
