@@ -2,6 +2,21 @@ version: '3'
 
 services:
 
+  mongoDb:
+    image: 'mongo'
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./volumes/mongodb:/data/db
+    environment:
+      SERVER_NAME: java.db.mongodb
+    env_file:
+      - .env
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
   redis:
     image: 'redis'
     volumes:

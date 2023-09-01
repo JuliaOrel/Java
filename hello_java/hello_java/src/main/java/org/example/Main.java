@@ -45,7 +45,10 @@ public class Main {
 //        August30DB work=new August30DB();
 //        work.run();
 
-        September_01_redis work=new September_01_redis();
+//        September_01_redis work=new September_01_redis();
+//        work.run();
+
+        September_01_Mongo work=new September_01_Mongo();
         work.run();
     }
 }
