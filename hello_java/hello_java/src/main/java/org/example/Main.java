@@ -42,7 +42,10 @@ public class Main {
 //        August29Files work=new August29Files();
 //        work.run();
 
-        August30DB work=new August30DB();
+//        August30DB work=new August30DB();
+//        work.run();
+
+        September_01_redis work=new September_01_redis();
         work.run();
     }
 }

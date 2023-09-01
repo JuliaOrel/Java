@@ -1,6 +1,18 @@
 version: '3'
 
 services:
+
+  redis:
+    image: 'redis'
+    volumes:
+      - './volumes/redis:/data'
+    ports:
+      - '6379:6379'
+    networks:
+      - pv121_java
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+
   java.db.mysql:
     image: mysql:8.0.34
     environment:
