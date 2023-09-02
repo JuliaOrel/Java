@@ -1,6 +1,8 @@
 package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.example.entities.City;
+import org.example.entities.Country;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -170,7 +172,7 @@ public class September02_hw implements Runnable{
                     displayMenuFilters();
                     break;
                 case 8:
-                    //displayMenuSettings();
+                    displayMenuSettings();
                     break;
                 case 9:
                     return; // Выход из метода
@@ -349,6 +351,76 @@ public class September02_hw implements Runnable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void displayMenuSettings() throws SQLException{
+        if(connection!=null){
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                System.out.println("Make your choice:");
+                System.out.println("1. Add row");
+                System.out.println("2. Delete row");
+                System.out.println("3. Update row");
+                System.out.println("4. Exit");
+
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        addRow();
+                        break;
+                    case 2:
+                        //deleteCar();
+                        break;
+                    case 3:
+                        //func();
+                        break;
+                    case 4:
+                        return; // Выход из метода
+                    default:
+                        System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+                }
+            }
+        }
+        else{
+            System.out.println("Connect to DB");
+        }
+
+    }
+
+    private void addRow(){
+        //City newCity = new City();
+        Scanner scanner=new Scanner(System.in);
+        Country newCountry = new Country();
+        System.out.println("Input country name");
+        newCountry.setCountryName(scanner.next());
+        System.out.println("Input capital name");
+        newCountry.setCapitalName(scanner.next());
+        System.out.println("Input population");
+        newCountry.setPopulation((scanner.nextInt()));
+        try {
+            // Вставляем данные в таблицу стран
+            String insertCountrySQL = "INSERT INTO countries (CountryName, CapitalName, Population) VALUES (?, ?,?)";
+            PreparedStatement countryStatement = connection.prepareStatement(insertCountrySQL, Statement.RETURN_GENERATED_KEYS);
+            countryStatement.setString(1, newCountry.getCountryName());
+            countryStatement.setString(2, newCountry.getCapitalName());
+            countryStatement.setInt(3, newCountry.getPopulation());
+            countryStatement.executeUpdate();
+
+
+            // Получаем сгенерированный ID страны
+            ResultSet generatedKeys = countryStatement.getGeneratedKeys();
+            int countryId = -1;
+            if (generatedKeys.next()) {
+                countryId = generatedKeys.getInt(1);
+            }
+
+            System.out.println("Данные о стране успешно добавлены. countryID: " + countryId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }
