@@ -48,7 +48,9 @@ public class Main {
 //        September_01_redis work=new September_01_redis();
 //        work.run();
 
-        September_01_Mongo work=new September_01_Mongo();
+//        September_01_Mongo work=new September_01_Mongo();
+//        work.run();
+        September02NetWork work=new September02NetWork();
         work.run();
     }
 }
