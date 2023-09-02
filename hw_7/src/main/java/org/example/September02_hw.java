@@ -141,9 +141,8 @@ public class September02_hw implements Runnable{
             System.out.println("4. Display all cities of country");
             System.out.println("5. Display all capitals");
             System.out.println("6. Display capital of the country");
-            System.out.println("7. Functions");
-            System.out.println("8. Filters");
-            System.out.println("9. Settings");
+            System.out.println("7. Filters");
+            System.out.println("8. Settings");
             System.out.println("9. Exit");
 
             int choice = scanner.nextInt();
@@ -168,7 +167,7 @@ public class September02_hw implements Runnable{
                     displayCapitalCountry();
                     break;
                 case 7:
-                    //displayMenuFilters();
+                    displayMenuFilters();
                     break;
                 case 8:
                     //displayMenuSettings();
@@ -256,6 +255,96 @@ public class September02_hw implements Runnable{
                 System.out.println("Capital of " + CountryName + " is " + capitalName);
             } else {
                 System.out.println("Country not found: " + CountryName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayMenuFilters() throws SQLException{
+        if(connection!=null){
+            Scanner scanner = new Scanner(System.in);
+
+            while (true) {
+                System.out.println("Make your choice:");
+                System.out.println("1. Display 2 countries with the biggest population");
+                System.out.println("2. Display 2 countries with the smallest population");
+                System.out.println("3. Average population in the city of the country");
+                System.out.println("4. Exit");
+
+                int choice = scanner.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        displayTwoCountriesBiggestPopul();
+                        break;
+                    case 2:
+                        displayTwoCountriesSmallesttPopul();
+                        break;
+                    case 3:
+                        displayAveragePopulationForCountry();
+                        break;
+                    case 4:
+                        return; // Выход из метода
+                    default:
+                        System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+                }
+            }
+        }
+        else{
+            System.out.println("Connect to DB");
+        }
+
+    }
+
+    private void displayTwoCountriesBiggestPopul(){
+        String query = "SELECT CountryName, Population FROM countries ORDER BY Population DESC LIMIT 2";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String countryName = resultSet.getString("CountryName");
+                int population = resultSet.getInt("Population");
+                System.out.println(countryName + ": " + population + " inhabitants");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayTwoCountriesSmallesttPopul(){
+        String query = "SELECT CountryName, Population FROM countries ORDER BY Population ASC LIMIT 2";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String countryName = resultSet.getString("CountryName");
+                int population = resultSet.getInt("Population");
+                System.out.println(countryName + ": " + population + " inhabitants");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayAveragePopulationForCountry(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country: ");
+        String CountryName=scanner.next();
+        String query = "SELECT AVG(cities.Population) AS average_population " +
+                "FROM cities " +
+                "INNER JOIN countries ON cities.CountryID = countries.CountryID " +
+                "WHERE countries.CountryName = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, CountryName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                double averagePopulation = resultSet.getDouble("average_population");
+                System.out.println("Среднее количество жителей в городах " + CountryName + ": " + averagePopulation);
             }
         } catch (SQLException e) {
             e.printStackTrace();
