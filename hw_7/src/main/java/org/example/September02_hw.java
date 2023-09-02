@@ -359,19 +359,20 @@ public class September02_hw implements Runnable{
 
             while (true) {
                 System.out.println("Make your choice:");
-                System.out.println("1. Add row");
-                System.out.println("2. Delete row");
-                System.out.println("3. Update row");
-                System.out.println("4. Exit");
+                System.out.println("1. Add row country");
+                System.out.println("2. Add row city");
+                System.out.println("3. Delete row");
+                System.out.println("4. Update row");
+                System.out.println("5. Exit");
 
                 int choice = scanner.nextInt();
 
                 switch (choice) {
                     case 1:
-                        addRow();
+                        addCountry();
                         break;
                     case 2:
-                        //deleteCar();
+                        addCity();
                         break;
                     case 3:
                         //func();
@@ -389,7 +390,7 @@ public class September02_hw implements Runnable{
 
     }
 
-    private void addRow(){
+    private void addCountry(){
         //City newCity = new City();
         Scanner scanner=new Scanner(System.in);
         Country newCountry = new Country();
@@ -421,6 +422,69 @@ public class September02_hw implements Runnable{
             e.printStackTrace();
         }
 
+        answer();
+
+
+    }
+    private void answer(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Do you want add note to table cities");
+
+        while (true) {
+            System.out.println("Make your choice:");
+            System.out.println("1. Yes");
+            System.out.println("2. No");
+            System.out.println("3. Exit");
+
+            int answer=scanner.nextInt();
+
+            switch (answer) {
+                case 1:
+                    addCity();
+                    break;
+                case 2:
+                    return;
+                case 3:
+                    return; // Выход из метода
+                default:
+                    System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+            }
+        }
+    }
+
+    private void addCity(){
+        Scanner scanner=new Scanner(System.in);
+        City newCity = new City();
+        System.out.println("Input city name");
+        newCity.setCityName(scanner.next());
+        System.out.println("Input country id");
+        newCity.setCountryId(scanner.nextInt());
+        System.out.println("Input population");
+        newCity.setPopulation(scanner.nextInt());
+        System.out.println("Input description");
+        newCity.setDescription(scanner.next());
+        try {
+            // Вставляем данные в таблицу стран
+            String insertCountrySQL = "INSERT INTO cities (CityName, CountryID, Population, Description) VALUES (?, ?,?,?)";
+            PreparedStatement cityStatement = connection.prepareStatement(insertCountrySQL, Statement.RETURN_GENERATED_KEYS);
+            cityStatement.setString(1, newCity.getCityName());
+            cityStatement.setInt(2, newCity.getCountryId());
+            cityStatement.setInt(3, newCity.getPopulation());
+            cityStatement.setString(4, newCity.getDescription());
+            cityStatement.executeUpdate();
+
+
+            // Получаем сгенерированный ID страны
+            ResultSet generatedKeys = cityStatement.getGeneratedKeys();
+            int cityID = -1;
+            if (generatedKeys.next()) {
+                cityID = generatedKeys.getInt(1);
+            }
+
+            System.out.println("Данные о стране успешно добавлены. countryID: " + cityID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
