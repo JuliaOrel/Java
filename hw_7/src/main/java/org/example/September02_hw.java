@@ -2,9 +2,7 @@ package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 public class September02_hw implements Runnable{
@@ -12,12 +10,99 @@ public class September02_hw implements Runnable{
     @Override
     public void run() {
         ConnectToDb();
+//        try {
+//            insertDataIntoCountriesTable();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            insertDataIntoCitiesTable();
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+        //migrate();
         try {
             displayMenu();
         } catch (SQLException e) {
             System.out.println("Something wrong"+e.getMessage());
         }
     }
+
+    private void migrate(){
+        String createCountriesTableSQL = "CREATE TABLE IF NOT EXISTS Countries ("
+                + "CountryID INT AUTO_INCREMENT PRIMARY KEY,"
+                + "CountryName VARCHAR(255) NOT NULL,"
+                + "CapitalName VARCHAR(255) NOT NULL,"
+                + "Population INT NOT NULL"
+                + ")";
+
+        // SQL-запрос для создания таблицы "Города"
+        String createCitiesTableSQL = "CREATE TABLE IF NOT EXISTS Cities ("
+                + "CityID INT AUTO_INCREMENT PRIMARY KEY,"
+                + "CityName VARCHAR(255) NOT NULL,"
+                + "CountryID INT,"
+                + "Population INT,"
+                + "Description TEXT,"
+                + "FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)"
+                + ")";
+
+        // Выполнить SQL-запросы для создания таблиц
+        try {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(createCountriesTableSQL);
+            statement.executeUpdate(createCitiesTableSQL);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        }
+}
+
+    private void insertDataIntoCountriesTable() throws SQLException {
+        String insertCountrySQL = "INSERT INTO Countries (CountryName, CapitalName, Population) VALUES (?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertCountrySQL)) {
+            preparedStatement.setString(1, "USA");
+            preparedStatement.setString(2, "Washington, D.C.");
+            preparedStatement.setInt(3, 331000000);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.setString(1, "Ukraine");
+            preparedStatement.setString(2, "Kyiev");
+            preparedStatement.setInt(3, 36744360);
+            preparedStatement.executeUpdate();
+
+            preparedStatement.setString(1, "China");
+            preparedStatement.setString(2, "Beijing");
+            preparedStatement.setInt(3, 1444216107);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    private void insertDataIntoCitiesTable() throws SQLException {
+        String insertCitySQL = "INSERT INTO Cities (CityName, CountryID, Population, Description) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(insertCitySQL)) {
+            preparedStatement.setString(1, "New York");
+            preparedStatement.setInt(2, 1); // Соответствует США
+            preparedStatement.setInt(3, 8398748);
+            preparedStatement.setString(4, "The largest city in the USA.");
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.setString(1, "Mykolaiv");
+            preparedStatement.setInt(2, 2); // Соответствует России
+            preparedStatement.setInt(3, 486267);
+            preparedStatement.setString(4, "Some notable landmarks in the city include the Mykolaiv Regional Academic Drama Theater, the Admiral Makarov National University of Shipbuilding, and the Monument to Shipbuilders..");
+
+            preparedStatement.executeUpdate();
+
+            preparedStatement.setString(1, "Shanghai");
+            preparedStatement.setInt(2, 3); // Соответствует Китаю
+            preparedStatement.setInt(3, 24256800);
+            preparedStatement.setString(4, "One of China's major financial hubs.");
+
+            preparedStatement.executeUpdate();
+        }
+    }
+
     private void ConnectToDb(){
         Dotenv dotenv = Dotenv.load();
         String jdbcUrl = "jdbc:mysql://localhost:30121/" + dotenv.get("MYSQL_DATABASE");
