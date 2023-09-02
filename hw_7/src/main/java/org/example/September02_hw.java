@@ -139,10 +139,11 @@ public class September02_hw implements Runnable{
             System.out.println("2. Disconnect from DB");
             System.out.println("3. Display all countries");
             System.out.println("4. Display all cities of country");
-            System.out.println("5. Display all manufacturers and amount of cars");
-            System.out.println("6. Functions");
-            System.out.println("7. Filters");
-            System.out.println("8. Settings");
+            System.out.println("5. Display all capitals");
+            System.out.println("6. Display capital of the country");
+            System.out.println("7. Functions");
+            System.out.println("8. Filters");
+            System.out.println("9. Settings");
             System.out.println("9. Exit");
 
             int choice = scanner.nextInt();
@@ -155,16 +156,16 @@ public class September02_hw implements Runnable{
                     disconnectFromDb();
                     break;
                 case 3:
-                    //displayAllCars();
+                    dispalyAllCountries();
                     break;
                 case 4:
-                    //displayManufacturers();
+                    displayCitiesByCountry();
                     break;
                 case 5:
-                    //displayManufacturersAndCounts();
+                    displayAllCapitals();
                     break;
                 case 6:
-                    //displayMenuFunct();
+                    displayCapitalCountry();
                     break;
                 case 7:
                     //displayMenuFilters();
@@ -177,6 +178,87 @@ public class September02_hw implements Runnable{
                 default:
                     System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
             }
+        }
+    }
+
+    private void dispalyAllCountries(){
+        String sqlQuery = "SELECT * FROM countries"; // countries - это название вашей таблицы с информацией о странах
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                // Здесь вы можете обработать результаты запроса и вывести информацию о каждой стране
+                String countryName = resultSet.getString("CountryName");
+                String capital = resultSet.getString("CapitalName");
+                // Добавьте другие поля, если они есть в вашей таблице
+                System.out.println("Country: " + countryName);
+                System.out.println("Capital: " + capital);
+                System.out.println(); // Добавьте пустую строку для разделения
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayCitiesByCountry() {
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country: ");
+        String CountryName=scanner.next();
+        String query = "SELECT cities.CityName FROM cities " +
+                "INNER JOIN countries ON cities.CountryId = countries.CountryID " +
+                "WHERE countries.CountryName = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, CountryName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String cityName = resultSet.getString("CityName");
+                    System.out.println("City: " + cityName);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void displayAllCapitals(){
+        String sqlQuery = "SELECT CapitalName FROM countries"; // countries - это название вашей таблицы с информацией о странах
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            while (resultSet.next()) {
+                // Здесь вы можете обработать результаты запроса и вывести информацию о каждой стране
+                //String countryName = resultSet.getString("CountryName");
+                String capital = resultSet.getString("CapitalName");
+                // Добавьте другие поля, если они есть в вашей таблице
+                //System.out.println("Country: " + countryName);
+                System.out.println("Capital: " + capital);
+                System.out.println(); // Добавьте пустую строку для разделения
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private  void displayCapitalCountry(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country: ");
+        String CountryName=scanner.next();
+        String query = "SELECT CapitalName FROM countries WHERE CountryName = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, CountryName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                String capitalName = resultSet.getString("CapitalName");
+                System.out.println("Capital of " + CountryName + " is " + capitalName);
+            } else {
+                System.out.println("Country not found: " + CountryName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
