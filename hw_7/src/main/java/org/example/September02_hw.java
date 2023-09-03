@@ -363,8 +363,9 @@ public class September02_hw implements Runnable{
                 System.out.println("2. Add row city");
                 System.out.println("3. Delete city");
                 System.out.println("4. Delete country");
-                System.out.println("5. Update row");
-                System.out.println("6. Exit");
+                System.out.println("5. Update country");
+                System.out.println("6. Update city");
+                System.out.println("7. Exit");
 
                 int choice = scanner.nextInt();
 
@@ -382,6 +383,12 @@ public class September02_hw implements Runnable{
                         deleteCountry();
                         break;
                     case 5:
+                        updateCountry();
+                        break;
+                    case 6:
+                        updateCity();
+                        break;
+                    case 7:
                         return; // Выход из метода
                     default:
                         System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
@@ -527,5 +534,214 @@ public class September02_hw implements Runnable{
         }
     }
 
+    private void updateCountry(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country id");
+        int countryIdToUpdate=scanner.nextInt();
+        while(true){
+            System.out.println("What note do you want to update?");
+            System.out.println("1.CountryName");
+            System.out.println("2.CapitalName");
+            System.out.println("3.Population");
+            System.out.println("4.Exit");
+
+            int choice=scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    updateCountryname(countryIdToUpdate);
+                    break;
+                case 2:
+                    updateCapitalname(countryIdToUpdate);
+                    break;
+                case 3:
+                    updatePopulation(countryIdToUpdate);
+                    break;
+                case 4:
+                    return; // Выход из метода
+                default:
+                    System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+            }
+        }
+    }
+
+    private void updateCountryname(int countryId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country name: ");
+        String newCountryName=scanner.next();
+        String sqlQuery = "UPDATE countries SET CountryName = ? WHERE CountryID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, newCountryName);
+            preparedStatement.setInt(2, countryId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Название страны обновлено.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateCapitalname(int countryId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input capital name: ");
+        String newCapitalName=scanner.next();
+        String sqlQuery = "UPDATE countries SET CapitalName = ? WHERE CountryID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, newCapitalName);
+            preparedStatement.setInt(2, countryId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Название столицы обновлено.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    private void updatePopulation(int countryId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input population: ");
+        int newPopulation=scanner.nextInt();
+        String sqlQuery = "UPDATE countries SET Population = ? WHERE CountryID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setInt(1, newPopulation);
+            preparedStatement.setInt(2, countryId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Численность населения обновлена.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateCity(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input city id");
+        int cityIdToUpdate=scanner.nextInt();
+        while(true){
+            System.out.println("What note do you want to update?");
+            System.out.println("1.CityName");
+            System.out.println("2.CountryId");
+            System.out.println("3.Population");
+            System.out.println("4.Description");
+            System.out.println("5.Exit");
+
+            int choice=scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    updateCityName(cityIdToUpdate);
+                    break;
+                case 2:
+                    updateCountryId(cityIdToUpdate);
+                    break;
+                case 3:
+                    updateCityPopulation(cityIdToUpdate);
+                    break;
+                case 4:
+                    updateDescription(cityIdToUpdate);
+                    break;
+                case 5:
+                    return; // Выход из метода
+                default:
+                    System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
+            }
+        }
+    }
+
+    private void updateCityName(int cityId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input city name: ");
+        String newCityName=scanner.next();
+        String sqlQuery = "UPDATE cities SET CityName = ? WHERE CityID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, newCityName);
+            preparedStatement.setInt(2, cityId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Название города обновлено.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateCountryId(int cityId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country id: ");
+        int newCountryId=scanner.nextInt();
+        String sqlQuery = "UPDATE cities SET CountryID = ? WHERE CityID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setInt(1, newCountryId);
+            preparedStatement.setInt(2, cityId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("ID страны обновлено.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateCityPopulation(int cityid){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input population: ");
+        int newPopulation=scanner.nextInt();
+        String sqlQuery = "UPDATE cities SET Population = ? WHERE CityID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setInt(1, newPopulation);
+            preparedStatement.setInt(2, cityid);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Численность города обновлена.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateDescription(int cityId){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input description of the city: ");
+        String newDescription=scanner.nextLine();
+        String sqlQuery = "UPDATE cities SET Description = ? WHERE CityID = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery)) {
+            preparedStatement.setString(1, newDescription);
+            preparedStatement.setInt(2, cityId);
+
+            int rowsUpdated = preparedStatement.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Описание города обновлено.");
+            } else {
+                System.out.println("Запись с указанным идентификатором не найдена.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
