@@ -31,7 +31,7 @@ public class ChatServerSocket implements Runnable {
         try {
             while (true) {
                 try {
-                    String msg = (String) inputStream.readObject();
+                    String msg = (String) inputStream.readUTF();
                     System.out.println(Thread.currentThread().getName() + ": " + msg);
                     sendMessage("U write: " + msg);
                     // Если пришло сообщение на выход - выхожу из цикла
@@ -41,15 +41,24 @@ public class ChatServerSocket implements Runnable {
                 } catch (Exception e) {
                     Thread.sleep(1000);
                     System.out.println("in ChatServerSocket.run: " +  e.getMessage());
+                    //break;
                 }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        } finally {
+            try {
+                inputStream.close();
+                outputStream.close();
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     public void sendMessage (String msg) {
         try {
-            outputStream.writeObject(msg);
+            outputStream.writeUTF(msg);
             outputStream.flush();
         } catch (Exception e) {
             System.out.println(e.getMessage());

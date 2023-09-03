@@ -25,7 +25,7 @@ public class ChatClientSocket implements Runnable{
         try {
             while (true) {
                 try {
-                    String msg = (String) inputStream.readObject();
+                    String msg = (String) inputStream.readUTF();
                     System.out.println("Server Say: " + msg);
                 } catch (Exception e) {
                     System.out.println("in ChatClientSocket.run: " +  e.getMessage());
