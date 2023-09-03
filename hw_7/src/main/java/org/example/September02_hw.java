@@ -45,7 +45,7 @@ public class September02_hw implements Runnable{
                 + "CountryID INT,"
                 + "Population INT,"
                 + "Description TEXT,"
-                + "FOREIGN KEY (CountryID) REFERENCES Countries(CountryID)"
+                + "FOREIGN KEY (CountryID) REFERENCES Countries(CountryID) ON DELETE SET NULL"
                 + ")";
 
         // Выполнить SQL-запросы для создания таблиц
@@ -361,9 +361,10 @@ public class September02_hw implements Runnable{
                 System.out.println("Make your choice:");
                 System.out.println("1. Add row country");
                 System.out.println("2. Add row city");
-                System.out.println("3. Delete row");
-                System.out.println("4. Update row");
-                System.out.println("5. Exit");
+                System.out.println("3. Delete city");
+                System.out.println("4. Delete country");
+                System.out.println("5. Update row");
+                System.out.println("6. Exit");
 
                 int choice = scanner.nextInt();
 
@@ -375,9 +376,12 @@ public class September02_hw implements Runnable{
                         addCity();
                         break;
                     case 3:
-                        //func();
+                        deleteCity();
                         break;
                     case 4:
+                        deleteCountry();
+                        break;
+                    case 5:
                         return; // Выход из метода
                     default:
                         System.out.println("Некорректный выбор. Пожалуйста, выберите снова.");
@@ -486,5 +490,42 @@ public class September02_hw implements Runnable{
             e.printStackTrace();
         }
     }
+
+    private void deleteCity(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input city id");
+        int cityIdToDelete=scanner.nextInt();
+        try {
+            // Сначала удаляем записи из таблицы городов
+            String deleteCitySQL = "DELETE FROM cities WHERE CityID = ?";
+            PreparedStatement cityStatement = connection.prepareStatement(deleteCitySQL);
+            cityStatement.setInt(1, cityIdToDelete);
+            cityStatement.executeUpdate();
+
+
+            System.out.println("Данные успешно удалены");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteCountry(){
+        Scanner scanner=new Scanner(System.in);
+        System.out.println("Input country id");
+        int countryIdToDelete=scanner.nextInt();
+        try {
+            // Сначала удаляем записи из таблицы городов
+            String deleteCountrySQL = "DELETE FROM countries WHERE CountryID = ?";
+            PreparedStatement countryStatement = connection.prepareStatement(deleteCountrySQL);
+            countryStatement.setInt(1, countryIdToDelete);
+            countryStatement.executeUpdate();
+
+
+            System.out.println("Данные успешно удалены");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
