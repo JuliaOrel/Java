@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="Chat">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatClientSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatServerSocket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/entities/chat/ChatServerSocket.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#ib_16384_0.dblwr" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#ib_16384_0.dblwr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_redo/#ib_redo9" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_redo/#ib_redo9" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_1.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_10.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_2.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_3.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_4.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_5.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_6.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_7.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_8.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/#innodb_temp/temp_9.ibt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/binlog.000003" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/binlog.000003" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/ib_buffer_pool" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/ib_buffer_pool" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/ibtmp1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/undo_002" beforeDir="false" afterPath="$PROJECT_DIR$/../../hw_7/volumes/java.db.mysql/undo_002" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +101,7 @@
       <workItem from="1693651966545" duration="175000" />
       <workItem from="1693670084296" duration="3719000" />
       <workItem from="1693744895955" duration="766000" />
+      <workItem from="1693751211648" duration="532000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />

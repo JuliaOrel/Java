@@ -7,25 +7,26 @@ import java.net.Socket;
 
 public class ChatServer {
     public static void main(String[]args){
-        try{
-            ServerSocket serverSocket=new ServerSocket(33123);
-            while(true){
-                Socket client=null;
-                while(client==null){
-                    System.out.println("Start waiting for client");
-                    client=serverSocket.accept();
-                    System.out.println("Connect from "+ client.getLocalAddress());
+        try {
+            // Начинаю слушать порт 33123
+            ServerSocket serverSocket = new ServerSocket(33123);
 
-                   ChatServerSocket newClient=new ChatServerSocket(client);
-                   Thread t=new Thread(newClient);
-                   t.start();
-
+            while (true) {
+                // Socket clientSocket = null;
+                while (true) {
+                    System.out.println(" Start wait client");
+                    // Создаю новый поток для обработки этого клиента
+                    ChatServerSocket newClient = new ChatServerSocket(serverSocket.accept());
+                    Thread t = new Thread(newClient);
+                    t.start();
                 }
             }
-        }catch(IOException e){
+
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             throw new RuntimeException(e);
         }
-
     }
+
+
 }
