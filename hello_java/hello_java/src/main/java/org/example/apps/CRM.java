@@ -1,6 +1,7 @@
 package org.example.apps;
 
 import org.example.models.Customer;
+import org.example.models.User;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,6 +14,15 @@ public class CRM {
     }
     public CRM(){
 
+    }
+
+    public Customer createCUstomerFromUser(User user){
+        Customer c=new Customer();
+        c.setUser_id(user.getUser_id());
+        c.setName(user.getName());
+        c.setCustomer_id(UUID.randomUUID());
+        customers.add(c);
+        return c;
     }
     public void run(){
         int userChoice;

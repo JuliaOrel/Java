@@ -14,6 +14,7 @@ public class mainCRM {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        work.run();
     }
 
 }
