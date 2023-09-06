@@ -14,7 +14,7 @@ public class ChatClientSocket implements Runnable{
         this.socket = socket;
         try {
             // Получу потоки
-            outputStream = new ObjectOutputStream(socket.getOutputStream());
+            //outputStream = new ObjectOutputStream(socket.getOutputStream());
             inputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             throw new RuntimeException(e);
