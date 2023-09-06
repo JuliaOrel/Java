@@ -50,7 +50,9 @@ public class Main {
 
 //        September_01_Mongo work=new September_01_Mongo();
 //        work.run();
-        September02NetWork work=new September02NetWork();
+//        September02NetWork work=new September02NetWork();
+//        work.run();
+        September_06_08 work=new September_06_08();
         work.run();
     }
 }
