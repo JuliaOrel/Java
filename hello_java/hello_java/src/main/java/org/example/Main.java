@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.entities.User;
-import org.example.myClassWork.*;
+import org.example.myClassWork.september_06.crm.September_06_08;
 
 /*
 F:\Java_jdk\jdk-17\bin\java.exe

@@ -1,7 +1,7 @@
-package org.example.myClassWork.crm;
+package org.example.myClassWork.september_06.crm.crm;
 
-import org.example.apps.CRM;
-import org.example.servers.ServerCRM;
+import org.example.myClassWork.september_06.crm.apps.CRM;
+import org.example.myClassWork.september_06.crm.servers.ServerCRM;
 
 public class mainCRM {
     public static void main(String[] args) {

@@ -1,8 +1,7 @@
-package org.example.myClassWork.crm;
+package org.example.myClassWork.september_06.crm.crm;
 
-import org.example.apps.CRM;
-import org.example.apps.Site;
-import org.example.servers.ServerSite;
+import org.example.myClassWork.september_06.crm.apps.Site;
+import org.example.myClassWork.september_06.crm.servers.ServerSite;
 
 public class mainSite {
     public static void main(String[] args) {

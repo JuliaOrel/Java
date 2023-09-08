@@ -1,4 +1,4 @@
-package org.example.servers;
+package org.example.myClassWork.september_06.crm.servers;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

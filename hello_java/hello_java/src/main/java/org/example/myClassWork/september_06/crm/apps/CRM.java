@@ -1,8 +1,14 @@
-package org.example.apps;
+package org.example.myClassWork.september_06.crm.apps;
 
-import org.example.models.Customer;
-import org.example.models.User;
+import org.example.myClassWork.september_06.crm.models.Customer;
+import org.example.myClassWork.september_06.crm.models.User;
+import org.example.myClassWork.september_06.crm.servers.Request;
+import org.example.myClassWork.september_06.crm.servers.RequestCommands;
+import org.example.myClassWork.september_06.crm.servers.Response;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -12,9 +18,7 @@ public class CRM {
     public ArrayList<Customer> getCustomers(){
         return customers;
     }
-    public CRM(){
-
-    }
+    public CRM(){}
 
     public Customer createCUstomerFromUser(User user){
         Customer c=new Customer();
@@ -44,9 +48,29 @@ public class CRM {
         newCustomer.setCustomer_id(UUID.randomUUID());
         newCustomer.setUser_id(null);
 
-        customers.add(newCustomer);
+        customers.add(newCustomer); //Событие регистрации наступило
+        Request r=new Request(RequestCommands.customerRegister, newCustomer);
+        sendToSite(r);
     }
 
+    private void sendToSite(Request r){
+        try{
+            Socket connect=new Socket("localhost", 33124);
+            ObjectOutputStream outputStream=new ObjectOutputStream(connect.getOutputStream());
+            outputStream.writeObject(r);
+
+            ObjectInputStream inputStream=new ObjectInputStream(connect.getInputStream());
+            Response res=(Response)inputStream.readObject();
+            User newUser=(User)res.getBody();
+            System.out.println(newUser);
+
+            ((Customer) r.getBody()).setUser_id(newUser.getUser_id());
+            connect.close();
+        }catch(Exception ex){
+
+        }
+
+    }
     private void commandShowAll() {
         System.out.println("\n+------------------------------+\n");
         for (Customer c: customers) {

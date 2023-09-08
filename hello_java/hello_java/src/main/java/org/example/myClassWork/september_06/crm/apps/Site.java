@@ -1,10 +1,10 @@
-package org.example.apps;
+package org.example.myClassWork.september_06.crm.apps;
 
-import org.example.models.Customer;
-import org.example.models.User;
-import org.example.servers.Request;
-import org.example.servers.RequestCommands;
-import org.example.servers.Response;
+import org.example.myClassWork.september_06.crm.models.Customer;
+import org.example.myClassWork.september_06.crm.models.User;
+import org.example.myClassWork.september_06.crm.servers.Request;
+import org.example.myClassWork.september_06.crm.servers.RequestCommands;
+import org.example.myClassWork.september_06.crm.servers.Response;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -35,6 +35,15 @@ public class Site {
         } while (userChoice != 0);
     }
 
+    public User createUserFromCustomer(Customer customer){
+        User u=new User();
+        u.setCustomer_id(customer.getCustomer_id());
+        u.setName(customer.getName());
+        u.setUser_id(UUID.randomUUID());
+        users.add(u);
+        return u;
+    }
+
     private void commandUserRegister(){
         System.out.println("Enter name: ");
         String name=scanner.nextLine();
@@ -42,19 +51,21 @@ public class Site {
         newUser.setName(name);
         newUser.setUser_id(UUID.randomUUID());
         newUser.setCustomer_id(null);
-        users.add(newUser);
+        users.add(newUser); //Событие регистрации наступило
 
         Request r=new Request(RequestCommands.userRegister, newUser);
+        sendToCRM(r);
     }
 
     private void sendToCRM(Request r){
         try{
             Socket connect=new Socket("localhost", 33123);
             ObjectOutputStream outputStream=new ObjectOutputStream(connect.getOutputStream());
-            outputStream.writeObject(r);
-            ObjectInputStream inputStream=new ObjectInputStream(connect.getInputStream());
+            outputStream.writeObject(r); //отправила созданного юзера
+
+            ObjectInputStream inputStream=new ObjectInputStream(connect.getInputStream());//жду ответ и читаю
             Response res=(Response) inputStream.readObject();
-            Customer newCustomer=(Customer)inputStream.readObject();
+            Customer newCustomer=(Customer)res.getBody();
             System.out.println(newCustomer);
 
             ((User) r.getBody()).setCustomer_id(newCustomer.getCustomer_id());

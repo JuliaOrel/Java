@@ -1,8 +1,8 @@
-package org.example.servers;
+package org.example.myClassWork.september_06.crm.servers;
 
-import org.example.apps.CRM;
-import org.example.models.Customer;
-import org.example.models.User;
+import org.example.myClassWork.september_06.crm.apps.CRM;
+import org.example.myClassWork.september_06.crm.models.Customer;
+import org.example.myClassWork.september_06.crm.models.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -25,6 +25,7 @@ public class ServerCRM implements Runnable{
                 while ((siteSocket == null)) {
                     siteSocket=serverSocket.accept();
                     System.out.println("Connect Form: "+siteSocket.getLocalAddress());
+
                     ObjectInputStream inputStream=new ObjectInputStream(siteSocket.getInputStream());
                     try{
                        Request request=(Request) inputStream.readObject();
