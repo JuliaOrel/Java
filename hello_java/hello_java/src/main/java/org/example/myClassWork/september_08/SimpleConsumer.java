@@ -3,12 +3,23 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
+import org.example.Main;
 
 import java.nio.charset.StandardCharsets;
 
 public class SimpleConsumer {
     private static final String queueName="app.events";
     public static void main(String[]args){
+        MyRabbitMQ rabbitMQ=new MyRabbitMQ();
+        rabbitMQ.useConsume((consumerTag, delivery)->{
+            Object data = DTOObject.toObject(delivery.getBody());
+            System.out.println(data);
+        });
+        Thread t=new Thread(rabbitMQ);
+        t.start();
+    }
+
+    public static void mainInLine(String[]args){
         ConnectionFactory factory=new ConnectionFactory();
         factory.setHost("localhost");
         factory.setUsername("user");
@@ -28,7 +39,14 @@ public class SimpleConsumer {
 
             };
             channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});
+            while(true){
+                try{
+                    Thread.sleep(500);
+                }catch (Exception e){}
+            }
         }catch (Exception e){System.out.println(e.getMessage());}
+
     }
+
 
 }

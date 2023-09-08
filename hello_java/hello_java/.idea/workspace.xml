@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="CRM-Site rabbit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleConsumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/DTOObject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/MyRabbitMQ.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/MyRabbitMQString.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +95,7 @@
       <workItem from="1693744895955" duration="766000" />
       <workItem from="1693751211648" duration="2554000" />
       <workItem from="1694012936739" duration="8321000" />
-      <workItem from="1694172948668" duration="11213000" />
+      <workItem from="1694172948668" duration="15876000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -295,7 +297,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694186041640</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="CRM-Site rabbit">
+      <option name="closed" value="true" />
+      <created>1694190093643</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1694190093643</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
