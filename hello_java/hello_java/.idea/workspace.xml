@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="CRM-Site hw">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="CRM-Site rabbit">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/rabbit/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker/rabbit/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +18,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -92,7 +93,7 @@
       <workItem from="1693744895955" duration="766000" />
       <workItem from="1693751211648" duration="2554000" />
       <workItem from="1694012936739" duration="8321000" />
-      <workItem from="1694172948668" duration="8583000" />
+      <workItem from="1694172948668" duration="11213000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -286,7 +287,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694179328025</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="CRM-Site rabbit">
+      <option name="closed" value="true" />
+      <created>1694186041640</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1694186041640</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -307,6 +316,7 @@
     <MESSAGE value="Chat" />
     <MESSAGE value="CRM-Site" />
     <MESSAGE value="CRM-Site hw" />
-    <option name="LAST_COMMIT_MESSAGE" value="CRM-Site hw" />
+    <MESSAGE value="CRM-Site rabbit" />
+    <option name="LAST_COMMIT_MESSAGE" value="CRM-Site rabbit" />
   </component>
 </project>
