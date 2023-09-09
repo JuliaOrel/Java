@@ -1,21 +1,24 @@
-package org.example.myClassWork.september_08;
+package org.example.myClassWork.September09;
 
-import com.rabbitmq.client.*;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import com.rabbitmq.client.DeliverCallback;
+import org.example.myClassWork.september_08.DTOObject;
 
 import java.io.IOException;
-import java.io.Serializable;
 
-public class MyRabbitMQ  implements  Runnable{
+public class MyRabbitMQ09 implements  Runnable{
     private String queueName="app.events";
     private Channel channel;
     private Connection connection;
     private ConnectionFactory factory;
 
-    public MyRabbitMQ() {
+    public MyRabbitMQ09() {
         this("app.events");
     }
 
-    public MyRabbitMQ(String queueName)
+    public MyRabbitMQ09(String queueName)
     {
         this.queueName = queueName;
 
@@ -42,9 +45,9 @@ public class MyRabbitMQ  implements  Runnable{
     public void useConsume(DeliverCallback cb){
         deliverCallback=cb;
     }
-    public void publish(Object o, String queueName){
+    public void publish (SerializableToBytes o){
         try{
-            channel.basicPublish("", queueName, null, DTOObject.toBytes(o));
+            channel.basicPublish("", queueName, null, o.toBytes());
         }catch(Exception e){
             System.out.println(e.getMessage());
             throw new RuntimeException();

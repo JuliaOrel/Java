@@ -23,7 +23,7 @@ public class SimpleProducer {
         u.setName("Vasya");
         u.setUser_id(UUID.randomUUID());
 
-        rabbitMQ.publish(u);
+        //rabbitMQ.publish(u);
 
 
         rabbitMQ.disconnect();

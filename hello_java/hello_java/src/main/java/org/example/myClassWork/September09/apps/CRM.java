@@ -1,14 +1,13 @@
-package org.example.myClassWork.september_06.crm.apps;
+package org.example.myClassWork.September09.apps;
 
-import org.example.myClassWork.september_06.crm.models.Customer;
-import org.example.myClassWork.september_06.crm.models.User;
-import org.example.myClassWork.september_06.crm.servers.Request;
-import org.example.myClassWork.september_06.crm.servers.RequestCommands;
-import org.example.myClassWork.september_06.crm.servers.Response;
+import com.rabbitmq.client.DeliverCallback;
+import org.example.myClassWork.September09.MyRabbitMQ09;
+import org.example.myClassWork.September09.models.Customer;
+import org.example.myClassWork.September09.models.User;
+import org.example.myClassWork.september_08.DTOObject;
 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.UUID;
@@ -18,17 +17,24 @@ public class CRM {
     public ArrayList<Customer> getCustomers(){
         return customers;
     }
-    public CRM(){}
+    private MyRabbitMQ09 rabbitMQSiteUserRegister;
+    private MyRabbitMQ09 rabbitMQCreateCustomer;
+    public CRM(){
+        rabbitMQSiteUserRegister=new MyRabbitMQ09("site.user.register");
+        rabbitMQSiteUserRegister.useConsume(this.listenerUserRegister);
+        new Thread(rabbitMQSiteUserRegister).start();
 
-    public Customer createCUstomerFromUser(User user){
-        Customer c=new Customer();
-        c.setUser_id(user.getUser_id());
-        c.setName(user.getName());
-        c.setCustomer_id(UUID.randomUUID());
-        customers.add(c);
-        return c;
+        rabbitMQCreateCustomer=new MyRabbitMQ09("crm.customer.update");
     }
-    public void run(){
+    DeliverCallback listenerUserRegister= (consumerTag, delivery) -> {
+        User u=User.fromBytes(delivery.getBody());
+        Customer c=Customer.fromUser(u);
+
+        customers.add(c);
+        rabbitMQCreateCustomer.publish(c);
+    };
+
+    public void run() throws IOException {
         int userChoice;
         do{
             userChoice=menu();
@@ -39,6 +45,8 @@ public class CRM {
                     break;
             }
         }while(userChoice!= 0);
+        rabbitMQCreateCustomer.disconnect();
+        rabbitMQSiteUserRegister.disconnect();
     }
     public void commandAddCustomer(){
         System.out.print("Введите имя: ");
@@ -49,29 +57,12 @@ public class CRM {
         newCustomer.setUser_id(null);
 
         customers.add(newCustomer); //Событие регистрации наступило
-        Request r=new Request(RequestCommands.customerRegister, newCustomer);
-        sendToSite(r);
 
     }
 
-    private void sendToSite(Request r){
-        try{
-            Socket connect=new Socket("localhost", 33124);
-            ObjectOutputStream outputStream=new ObjectOutputStream(connect.getOutputStream());
-            outputStream.writeObject(r);
 
-            ObjectInputStream inputStream=new ObjectInputStream(connect.getInputStream());
-            Response res=(Response)inputStream.readObject();
-            User newUser=(User)res.getBody();
-            System.out.println(newUser);
 
-            ((Customer) r.getBody()).setUser_id(newUser.getUser_id());
-            connect.close();
-        }catch(Exception ex){
 
-        }
-
-    }
     private void commandShowAll() {
         System.out.println("\n+------------------------------+\n");
         for (Customer c: customers) {

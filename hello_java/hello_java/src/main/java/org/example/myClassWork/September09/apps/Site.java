@@ -1,10 +1,9 @@
-package org.example.myClassWork.september_06.crm.apps;
+package org.example.myClassWork.September09.apps;
 
-import org.example.myClassWork.september_06.crm.models.Customer;
-import org.example.myClassWork.september_06.crm.models.User;
-import org.example.myClassWork.september_06.crm.servers.Request;
-import org.example.myClassWork.september_06.crm.servers.RequestCommands;
-import org.example.myClassWork.september_06.crm.servers.Response;
+import org.example.myClassWork.September09.MyRabbitMQ09;
+import org.example.myClassWork.September09.models.Customer;
+import org.example.myClassWork.September09.models.User;
+
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,6 +17,9 @@ public class Site {
     public ArrayList<User> getUsers(){
         return users;
     }
+
+    private MyRabbitMQ09 rabbitMQSiteUserRegister;
+    private MyRabbitMQ09 rabbitMQCreateCustomer;
     public Site(){}
     Scanner scanner=new Scanner(System.in);
 
@@ -53,31 +55,14 @@ public class Site {
         newUser.setCustomer_id(null);
         users.add(newUser); //Событие регистрации наступило
 
+        //rabbitMQSiteUserRegister
+
         //Это если без rabbitMQ
-        Request r=new Request(RequestCommands.userRegister, newUser);
-       sendToCRM(r);
+        //Request r=new Request(RequestCommands.userRegister, newUser);
+       // sendToCRM(r);
     }
 
-    private void sendToCRM(Request r){
-        try{
-            Socket connect=new Socket("localhost", 33123);
-            ObjectOutputStream outputStream=new ObjectOutputStream(connect.getOutputStream());
-            outputStream.writeObject(r); //отправила созданного юзера
 
-            ObjectInputStream inputStream=new ObjectInputStream(connect.getInputStream());//жду ответ и читаю
-            Response res=(Response) inputStream.readObject();
-            Customer newCustomer=(Customer)res.getBody();
-            System.out.println(newCustomer);
-
-            ((User) r.getBody()).setCustomer_id(newCustomer.getCustomer_id());
-//            users.stream().
-//                    filter(u->u.getUser_id()==newCustomer.getUser_id())
-//                            .findFirst().get().setCustomer_id(newCustomer.getCustomer_id());
-            connect.close();
-
-        }catch(Exception e){}
-
-    }
 
     private void commandShowAll(){
         System.out.print("\n+--------------------------------+\n");
