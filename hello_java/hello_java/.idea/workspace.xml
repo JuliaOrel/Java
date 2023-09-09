@@ -5,21 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="CRM-Site rabbit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/MyRabbitMQ09.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/SerializableToBytes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/apps/CRM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/apps/Site.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/crm/mainCRM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/crm/mainSite.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/models/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/September09/models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/HomeWork08.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_06/crm/apps/CRM.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_06/crm/apps/CRM.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_06/crm/apps/Site.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_06/crm/apps/Site.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/MyRabbitMQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/MyRabbitMQ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/MyRabbitMQString.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/myClassWork/september_08/SimpleProducer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +98,7 @@
       <workItem from="1693751211648" duration="2554000" />
       <workItem from="1694012936739" duration="8321000" />
       <workItem from="1694172948668" duration="16701000" />
-      <workItem from="1694257625087" duration="15482000" />
+      <workItem from="1694257625087" duration="17540000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
@@ -330,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1694194595756</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="CRM-Site rabbit">
+      <option name="closed" value="true" />
+      <created>1694277756289</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1694277756289</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
