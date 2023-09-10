@@ -62,6 +62,14 @@ public class User implements Serializable, SerializableToBytes {
 
         return u;
     }
+
+    public static User fromCustomer(Customer c){
+        User u=new User();
+        u.setUser_id(UUID.randomUUID());
+        u.setName(c.getName());
+        u.setCustomer_id(c.getCustomer_id());
+        return u;
+    }
     public void updateFromCustomer(Customer c) {
         this.setCustomer_id(c.getCustomer_id());
     }

@@ -70,4 +70,8 @@ public class Customer implements Serializable, SerializableToBytes {
         c.setCustomer_id(UUID.randomUUID());
         return c;
     }
+
+    public void updateFromUser(User u) {
+        this.setUser_id(u.getUser_id());
+    }
 }

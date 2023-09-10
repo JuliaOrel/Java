@@ -19,13 +19,42 @@ public class Site {
 
     private MyRabbitMQ09 rabbitMQSiteUserRegister;
     private MyRabbitMQ09 rabbitMQCRMUserUpdate;
+    private MyRabbitMQ09 rabbitMQCRMCustomerCreate;
+    private MyRabbitMQ09 rabbitMQSiteCustomerUpdate;
+    private Thread t;
+    private Thread t2;
     public Site(){
+        //Я сообщаю CRM, что появился новый пользователь на сайте - Producer
         rabbitMQSiteUserRegister = new MyRabbitMQ09("site.user.register");
 
+        //Я мониторю обновления пользователя на CRM - Consumer
         rabbitMQCRMUserUpdate = new MyRabbitMQ09("crm.user.update");
         rabbitMQCRMUserUpdate.useConsume(listenerCrmUserUpdate);
-        new Thread(rabbitMQCRMUserUpdate).start();
+        t=new Thread(rabbitMQCRMUserUpdate);
+        t.start();
+        //new Thread(rabbitMQCRMUserUpdate).start();
+
+        // Я мониторю события, связанные с созданием нового customer на CRM
+        // Это Consumer
+        rabbitMQCRMCustomerCreate=new MyRabbitMQ09("crm.customer.create");
+        rabbitMQCRMCustomerCreate.useConsume(this.listenerCRMCustomerCreate);
+        t2=new Thread(rabbitMQCRMCustomerCreate);
+        t2.start();
+
+        // Я сообщаю CRM, что customer обновился
+        // Это Producer
+        rabbitMQSiteCustomerUpdate=new MyRabbitMQ09("site.customer.update");
+
     }
+
+    DeliverCallback listenerCRMCustomerCreate=(consumerTag, delivery)->{
+        // Таким образом я получаю тут customer
+        Customer c=Customer.fromBytes(delivery.getBody());
+        User u=User.fromCustomer(c);
+
+        users.add(u);
+        rabbitMQSiteCustomerUpdate.publish(u);
+    };
 
     DeliverCallback listenerCrmUserUpdate  = (consumerTag, delivery) -> {
         Customer c = Customer.fromBytes(delivery.getBody());
@@ -51,11 +80,18 @@ public class Site {
                 break;
                 case 9: commandShowAll();
                 break;
+
             }
 
-        } while (userChoice != 0);
+        } while (userChoice != 0 );
         rabbitMQSiteUserRegister.disconnect();
         rabbitMQCRMUserUpdate.disconnect();
+        rabbitMQCRMCustomerCreate.disconnect();
+        rabbitMQSiteCustomerUpdate.disconnect();
+        t.interrupt();
+        t2.interrupt();
+
+
     }
 
     public void commandUserRegister(){

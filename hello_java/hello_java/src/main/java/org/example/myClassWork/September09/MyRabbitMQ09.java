@@ -7,6 +7,7 @@ import com.rabbitmq.client.DeliverCallback;
 
 import java.io.IOException;
 
+
 public class MyRabbitMQ09 implements  Runnable{
     private String queueName="app.events";
     private Channel channel;
@@ -65,7 +66,8 @@ public class MyRabbitMQ09 implements  Runnable{
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            throw new RuntimeException(); // Выйти из ПО
+            System.out.println("Exit");
+            //throw new RuntimeException(); // Выйти из ПО
         }
     }
 

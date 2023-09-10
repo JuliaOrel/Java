@@ -8,6 +8,7 @@ import org.example.myClassWork.September09.models.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -18,6 +19,10 @@ public class CRM {
     }
     private MyRabbitMQ09 rabbitMQSiteUserRegister;
     private MyRabbitMQ09 rabbitMQCRMUserUpdate;
+    private MyRabbitMQ09 rabbitMQCRMCustomerCreate;
+    private MyRabbitMQ09 rabbitMQSiteCustomerUpdate;
+    private Thread t;
+    private Thread t2;
     DeliverCallback listenerUserRegister= (consumerTag, delivery) -> {
         // Таким образом я получаю тут пользователя
         User u=User.fromBytes(delivery.getBody());
@@ -26,16 +31,40 @@ public class CRM {
         customers.add(c);
         rabbitMQCRMUserUpdate.publish(c);
     };
+
+    DeliverCallback listenerSiteCustomerUpdate=(consumeTag, delivery)-> {
+        User u = User.fromBytes(delivery.getBody());
+        Optional<Customer> customer = customers.stream()
+                .filter(c ->  c.getCustomer_id().equals(u.getCustomer_id()) )
+                .findFirst();
+        if (customer.isEmpty()) {
+            System.out.println(" Ошибка синхронизации");
+        } else {
+            customer.get().updateFromUser(u);
+        }
+    };
     public CRM(){
         // Я мониторю события, связанные с созданием нового пользователя на сайте
         // Это Consumer
         rabbitMQSiteUserRegister=new MyRabbitMQ09("site.user.register");
         rabbitMQSiteUserRegister.useConsume(this.listenerUserRegister);
-        new Thread(rabbitMQSiteUserRegister).start();
+        t=new Thread(rabbitMQSiteUserRegister);
+        t.start();
+        //new Thread(rabbitMQSiteUserRegister).start();
 
         // Я сообщаю сайту, что пользователь обновился
         // Это Producer
         rabbitMQCRMUserUpdate=new MyRabbitMQ09("crm.user.update");
+
+        //Я мониторю события, связанные с обновлением customer на сайте (Consumer)
+        rabbitMQSiteCustomerUpdate=new MyRabbitMQ09("site.customer.update");
+        rabbitMQSiteCustomerUpdate.useConsume(this.listenerSiteCustomerUpdate);
+        t2=new Thread(rabbitMQSiteCustomerUpdate);
+        t2.start();
+        //new Thread(rabbitMQSiteCustomerUpdate).start();
+
+        //Я ссобщаю сайту, что создан новый consumer - Producer
+        rabbitMQCRMCustomerCreate=new MyRabbitMQ09("crm.customer.create");
     }
 
 
@@ -48,10 +77,15 @@ public class CRM {
                     break;
                 case 9: commandShowAll();
                     break;
+
             }
         }while(userChoice!= 0);
         rabbitMQCRMUserUpdate.disconnect();
         rabbitMQSiteUserRegister.disconnect();
+        rabbitMQCRMCustomerCreate.disconnect();
+        rabbitMQSiteCustomerUpdate.disconnect();
+        t.interrupt();
+        t2.interrupt();
     }
     public void commandAddCustomer(){
         System.out.print("Введите имя: ");
@@ -62,6 +96,8 @@ public class CRM {
         newCustomer.setUser_id(null);
 
         customers.add(newCustomer); //Событие регистрации наступило
+
+        rabbitMQCRMCustomerCreate.publish(newCustomer);
 
     }
 
