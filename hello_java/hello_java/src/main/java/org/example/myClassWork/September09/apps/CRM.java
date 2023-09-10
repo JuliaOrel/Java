@@ -4,7 +4,6 @@ import com.rabbitmq.client.DeliverCallback;
 import org.example.myClassWork.September09.MyRabbitMQ09;
 import org.example.myClassWork.September09.models.Customer;
 import org.example.myClassWork.September09.models.User;
-import org.example.myClassWork.september_08.DTOObject;
 
 
 import java.io.IOException;
@@ -18,21 +17,27 @@ public class CRM {
         return customers;
     }
     private MyRabbitMQ09 rabbitMQSiteUserRegister;
-    private MyRabbitMQ09 rabbitMQCreateCustomer;
-    public CRM(){
-        rabbitMQSiteUserRegister=new MyRabbitMQ09("site.user.register");
-        rabbitMQSiteUserRegister.useConsume(this.listenerUserRegister);
-        new Thread(rabbitMQSiteUserRegister).start();
-
-        rabbitMQCreateCustomer=new MyRabbitMQ09("crm.customer.update");
-    }
+    private MyRabbitMQ09 rabbitMQCRMUserUpdate;
     DeliverCallback listenerUserRegister= (consumerTag, delivery) -> {
+        // Таким образом я получаю тут пользователя
         User u=User.fromBytes(delivery.getBody());
         Customer c=Customer.fromUser(u);
 
         customers.add(c);
-        rabbitMQCreateCustomer.publish(c);
+        rabbitMQCRMUserUpdate.publish(c);
     };
+    public CRM(){
+        // Я мониторю события, связанные с созданием нового пользователя на сайте
+        // Это Consumer
+        rabbitMQSiteUserRegister=new MyRabbitMQ09("site.user.register");
+        rabbitMQSiteUserRegister.useConsume(this.listenerUserRegister);
+        new Thread(rabbitMQSiteUserRegister).start();
+
+        // Я сообщаю сайту, что пользователь обновился
+        // Это Producer
+        rabbitMQCRMUserUpdate=new MyRabbitMQ09("crm.user.update");
+    }
+
 
     public void run() throws IOException {
         int userChoice;
@@ -45,7 +50,7 @@ public class CRM {
                     break;
             }
         }while(userChoice!= 0);
-        rabbitMQCreateCustomer.disconnect();
+        rabbitMQCRMUserUpdate.disconnect();
         rabbitMQSiteUserRegister.disconnect();
     }
     public void commandAddCustomer(){
@@ -59,9 +64,6 @@ public class CRM {
         customers.add(newCustomer); //Событие регистрации наступило
 
     }
-
-
-
 
     private void commandShowAll() {
         System.out.println("\n+------------------------------+\n");

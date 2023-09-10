@@ -62,4 +62,7 @@ public class User implements Serializable, SerializableToBytes {
 
         return u;
     }
+    public void updateFromCustomer(Customer c) {
+        this.setCustomer_id(c.getCustomer_id());
+    }
 }

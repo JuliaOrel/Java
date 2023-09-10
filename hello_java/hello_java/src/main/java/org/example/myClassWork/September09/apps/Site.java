@@ -1,14 +1,13 @@
 package org.example.myClassWork.September09.apps;
 
+import com.rabbitmq.client.DeliverCallback;
 import org.example.myClassWork.September09.MyRabbitMQ09;
 import org.example.myClassWork.September09.models.Customer;
 import org.example.myClassWork.September09.models.User;
 
-
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -19,11 +18,31 @@ public class Site {
     }
 
     private MyRabbitMQ09 rabbitMQSiteUserRegister;
-    private MyRabbitMQ09 rabbitMQCreateCustomer;
-    public Site(){}
+    private MyRabbitMQ09 rabbitMQCRMUserUpdate;
+    public Site(){
+        rabbitMQSiteUserRegister = new MyRabbitMQ09("site.user.register");
+
+        rabbitMQCRMUserUpdate = new MyRabbitMQ09("crm.user.update");
+        rabbitMQCRMUserUpdate.useConsume(listenerCrmUserUpdate);
+        new Thread(rabbitMQCRMUserUpdate).start();
+    }
+
+    DeliverCallback listenerCrmUserUpdate  = (consumerTag, delivery) -> {
+        Customer c = Customer.fromBytes(delivery.getBody());
+        Optional<User> user = users.stream()
+                .filter(u ->  u.getUser_id().equals(c.getUser_id()) )
+                .findFirst();
+        if (user.isEmpty()) {
+            System.out.println(" Ошибка синхронизации");
+        } else {
+            user.get().updateFromCustomer(c);
+        }
+
+
+    };
     Scanner scanner=new Scanner(System.in);
 
-    public void run(){
+    public void run() throws IOException {
         int userChoice;
         do {
             userChoice = menu();
@@ -35,15 +54,8 @@ public class Site {
             }
 
         } while (userChoice != 0);
-    }
-
-    public User createUserFromCustomer(Customer customer){
-        User u=new User();
-        u.setCustomer_id(customer.getCustomer_id());
-        u.setName(customer.getName());
-        u.setUser_id(UUID.randomUUID());
-        users.add(u);
-        return u;
+        rabbitMQSiteUserRegister.disconnect();
+        rabbitMQCRMUserUpdate.disconnect();
     }
 
     public void commandUserRegister(){
@@ -55,13 +67,12 @@ public class Site {
         newUser.setCustomer_id(null);
         users.add(newUser); //Событие регистрации наступило
 
-        //rabbitMQSiteUserRegister
+        rabbitMQSiteUserRegister.publish(newUser);
 
         //Это если без rabbitMQ
         //Request r=new Request(RequestCommands.userRegister, newUser);
        // sendToCRM(r);
     }
-
 
 
     private void commandShowAll(){
