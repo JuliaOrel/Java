@@ -20,7 +20,7 @@ public class SomePerson {
     private UUID id;
     private String name;
 
-    @OneToMany(mappedBy="person")
+    @OneToMany(mappedBy="person", fetch=FetchType.LAZY)
     private Set<SomeDocument> documents=new HashSet<>();
 }
 
