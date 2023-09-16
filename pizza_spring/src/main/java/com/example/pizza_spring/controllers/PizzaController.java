@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,13 +15,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/pizza")
-public class PizzaOrderController {
+public class PizzaController {
     private final PizzaRepository pizzaRepository;
-    private final PizzaOrderRepository pizzaOrderRepository;
+
     @Autowired
-    public PizzaOrderController(PizzaRepository pizzaRepository, PizzaOrderRepository orderRepository) {
+    public PizzaController(PizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;
-        this.pizzaOrderRepository = orderRepository;
     }
 
     //Controller for managing pizza
@@ -28,7 +28,8 @@ public class PizzaOrderController {
     public List<Pizza> getAllPizzas() {
         return pizzaRepository.findAll();
     }
-    @PostMapping("/pizzas")
+
+    @PostMapping("/newPizza")
     public ResponseEntity<Pizza> createPizza(@RequestBody Pizza pizza) {
         Pizza savedPizza = pizzaRepository.save(pizza);
         return new ResponseEntity<>(savedPizza, HttpStatus.CREATED);
@@ -40,4 +41,21 @@ public class PizzaOrderController {
         return pizza.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @PutMapping("/{id}")
+    public Pizza updatePizza(@PathVariable UUID id, @RequestBody Pizza pizza) {
+        Pizza pizzaToUpdate = pizzaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));
+        pizzaToUpdate.setName(pizza.getName());
+        pizzaToUpdate.setPrice(pizza.getPrice());
+        return pizzaRepository.save(pizza);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePizza(@PathVariable UUID id) {
+        Pizza bookToDelete = pizzaRepository.findById(id)
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));
+        pizzaRepository.delete(bookToDelete);
+    }
 }
+
