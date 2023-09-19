@@ -97,4 +97,14 @@ public class PizzaToppingController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/toppings/{toppingId}") //вносит изменения только в данные topping
+    public ResponseEntity<Topping> updateOrder(@PathVariable UUID toppingId, @RequestBody Topping updatedTopping) {
+        if (!toppingRepository.existsById(toppingId)) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        updatedTopping.setId(toppingId);
+        Topping savedTopping = toppingRepository.save(updatedTopping);
+        return new ResponseEntity<>(savedTopping, HttpStatus.OK);
+    }
 }

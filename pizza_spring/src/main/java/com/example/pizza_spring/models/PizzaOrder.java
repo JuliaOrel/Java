@@ -28,7 +28,7 @@ public class PizzaOrder {
     @JsonProperty("delivery_address")
     private String deliveryAddress;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "pizza_order_pizzas",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "pizza_id"))
