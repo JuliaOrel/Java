@@ -42,7 +42,7 @@ public class PizzaController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") //вносит изменения в пиццу и ее топпинги
     public Pizza updatePizza(@PathVariable UUID id, @RequestBody Pizza pizza) {
         Pizza pizzaToUpdate = pizzaRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));

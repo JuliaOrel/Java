@@ -65,4 +65,36 @@ public class PizzaToppingController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    //Удаляет из topping and pizza_topping
+    @DeleteMapping("/toppings/{toppingId}")
+    public ResponseEntity<Void> deleteTopping(@PathVariable UUID toppingId) {
+        try {
+            Optional<Topping> optionalTopping = toppingRepository.findById(toppingId);
+
+            if (optionalTopping.isPresent()) {
+                Topping topping = optionalTopping.get();
+
+                // Находим все Pizza, связанные с Topping
+                List<Pizza> pizzasWithTopping = pizzaRepository.findByToppingsContaining(topping);
+
+                // Удаляем связи Topping с Pizza
+                for (Pizza pizza : pizzasWithTopping) {
+                    pizza.getToppings().remove(topping);
+                    pizzaRepository.save(pizza);
+                }
+
+                // Теперь можно удалить сам Topping
+                toppingRepository.deleteById(toppingId);
+
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            // Обработка исключения
+            e.printStackTrace(); // Вывод информации об ошибке в консоль (в реальном приложении лучше использовать логгирование)
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

@@ -21,7 +21,7 @@ public class Pizza {
     private UUID id;
     private String name;
     private BigDecimal price;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "pizza_toppings",
             joinColumns = @JoinColumn(name = "pizza_id"),
             inverseJoinColumns = @JoinColumn(name = "topping_id"))

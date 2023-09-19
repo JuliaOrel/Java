@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -19,4 +20,5 @@ public class Topping {
     private UUID id;
     private String name;
     private BigDecimal price;
+
 }

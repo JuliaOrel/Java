@@ -62,23 +62,23 @@ public class PizzaOrderController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    //Нужно отправлять запрос типа для обновления данных
-    //{"id": "46ca558f-b4b4-403f-920f-ac0598a6fdf0",
-    //        "selectedPizzas": [
-    //            {
-    //                "id": "9ab713fa-8460-4694-8ae2-0345a41e4d6b",
-    //                "name": "Haw",
-    //                "price": 144.35,
-    //                "toppings": []
-    //            }
-    //        ],
-    //        "customer_name": "Old man",
-    //        "phone_number": "0934561236",
-    //        "email": "george@gmail.com",
-    //        "delivery_address": "self"
+    //Нужно отправлять запрос типа для обновления данных ID пиццы и заказа менять!!!
+//    {"id": "46ca558f-b4b4-403f-920f-ac0598a6fdf0",
+//            "selectedPizzas": [
+//                {
+//                    "id": "9ab713fa-8460-4694-8ae2-0345a41e4d6b",
+//                    "name": "Haw",
+//                    "price": 144.35,
+//                    "toppings": []
+//                }
+//            ],
+//            "customer_name": "Old man",
+//            "phone_number": "0934561236",
+//            "email": "george@gmail.com",
+//            "delivery_address": "self"
     //    }
     //тогда меняется
-    @PutMapping("/orders/{orderId}")
+    @PutMapping("/orders/{orderId}") //вносит изменения только в данные заказчика
     public ResponseEntity<PizzaOrder> updateOrder(@PathVariable UUID orderId, @RequestBody PizzaOrder updatedOrder) {
         if (!pizzaOrderRepository.existsById(orderId)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
