@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -26,7 +27,20 @@ public class SomeDocumentController {
     public Iterable <SomeDocument>getAllDocuments(){return someDocumentRepository.findAll();}
 
     @GetMapping("/{id}")
-    public SomeDocument getById(@PathVariable UUID id){
+public ResponseEntity<SomeDocument>getById(@PathVariable UUID id){
+        Optional<SomeDocument> document=someDocumentRepository.findById(id);
+        if(document.isEmpty())
+            return ResponseEntity
+                    .status(404)
+                    .body(null);
+        return ResponseEntity
+                .status(200)
+                .body(document.get());
+    }
+
+
+    @GetMapping("2/{id}")
+    public SomeDocument getById2(@PathVariable UUID id){
         SomeDocument document=someDocumentRepository.findById(id)
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "entity not found"));
         //List<SomeDocument> l=person.getDocuments().stream().toList();
