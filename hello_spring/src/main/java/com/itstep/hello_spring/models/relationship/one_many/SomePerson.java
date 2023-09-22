@@ -22,5 +22,13 @@ public class SomePerson {
 
     @OneToMany(mappedBy="person", fetch=FetchType.LAZY)
     private Set<SomeDocument> documents=new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "x_person_groups",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn (name = "group_id")
+    )
+    private Set<SomeGroup> groups = new HashSet<>();
 }
 
