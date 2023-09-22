@@ -13,12 +13,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="toyota_car_models")
-public class ToyotaModel {
+@Table(name="toyota_car_colors")
+public class ToyotaColor {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
     private String name;
-    @OneToMany (mappedBy = "model")
-    Set<ToyotaComplectation> complectations=new HashSet<>();
+
+    @ManyToMany(mappedBy = "colors")
+    Set<ToyotaComplectation>complectations=new HashSet<>();
 }
