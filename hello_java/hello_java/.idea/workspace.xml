@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9318c67f-7f27-41da-9171-01cc3e6ebb4d" name="Changes" comment="CRM-Site rabbit hw">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../hello_spring/src/main/java/com/itstep/hello_spring/controllers/RedisController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hello_spring/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../hello_spring/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../hello_spring/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../hello_spring/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +103,7 @@
       <workItem from="1694257625087" duration="17540000" />
       <workItem from="1694350215152" duration="8388000" />
       <workItem from="1694446438527" duration="23000" />
+      <workItem from="1695479669401" duration="645000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <option name="closed" value="true" />
