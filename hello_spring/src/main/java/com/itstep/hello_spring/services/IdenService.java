@@ -2,6 +2,7 @@ package com.itstep.hello_spring.services;
 
 import com.itstep.hello_spring.models.bar.Water;
 import com.itstep.hello_spring.services.bar.interfaces.IdenChildInterface;
+import com.itstep.hello_spring.services.bar.interfaces.SemService;
 import org.springframework.stereotype.Service;
 
 @Service

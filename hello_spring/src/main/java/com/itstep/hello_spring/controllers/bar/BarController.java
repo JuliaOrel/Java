@@ -3,7 +3,7 @@ package com.itstep.hello_spring.controllers.bar;
 import com.itstep.hello_spring.models.bar.Coffee;
 import com.itstep.hello_spring.models.interfaces.ModelInterface;
 import com.itstep.hello_spring.services.IdenService;
-import com.itstep.hello_spring.services.SemService;
+import com.itstep.hello_spring.services.bar.interfaces.SemService;
 import com.itstep.hello_spring.services.bar.interfaces.SemParentInterface;
 import org.springframework.http.ResponseEntity;
 
