@@ -2,11 +2,12 @@ package com.itstep.hello_spring.services;
 
 import com.itstep.hello_spring.models.relationship.one_many.SomePerson;
 import com.itstep.hello_spring.repositories.SomePersonRepository;
+import com.itstep.hello_spring.services.interfaces.SomePersonServiceInterface;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SomePersonService {
+public class SomePersonService implements SomePersonServiceInterface {
     final SomePersonRepository personRepository;
 
     public SomePersonService(SomePersonRepository personRepository) {
