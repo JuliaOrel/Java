@@ -1,36 +1,56 @@
 package com.itstep.hello_spring.controllers;
 
+import com.itstep.hello_spring.services.helpers.storages.LocalFileService;
 import com.itstep.hello_spring.services.helpers.storages.MinioFileService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+
 
 @RestController
 @RequestMapping("/api/files")
 public class FileUploadController {
     final MinioFileService minioFileService;
-    //final LocalFileService localFileService;
-    //final StorageService storageService;
+    final LocalFileService localFileService;
 
-    public FileUploadController (MinioFileService minioFileService){
 
-            //LocalFileService localFileService
-            //StorageService storageService
+    public FileUploadController (MinioFileService minioFileService, LocalFileService localFileService){
 
         this.minioFileService = minioFileService;
-        //this.localFileService = localFileService;
+        this.localFileService = localFileService;
         // Этот сервис является оболочкой для других
         // такоим образом - мне не важно будет в коде вообще количество хранилищ
         //this.storageService = storageService;
     }
-    private  static final String UPLOAD_DIR="F:\\tmp\\upload";
+    @Value("${upload.dir}")
+    private String UPLOAD_DIR;
+
+    @GetMapping("/get/{filename}")
+    public ResponseEntity<Resource> getBodyByFileName(@PathVariable String filename) throws IOException {
+        Path filePath = Path.of(UPLOAD_DIR, filename);
+        Resource resource = new UrlResource(filePath.toUri());
+
+        if (resource.exists() && resource.isReadable()) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename); // Это указывает браузеру на скачивание файла
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .body(resource);
+        } else {
+            // В случае, если файл не существует или не может быть прочитан, возвращаем 404 Not Found
+            return ResponseEntity.notFound().build();
+        }
+    }
     @PostMapping("/upload")
     public String upload(@RequestParam("file")MultipartFile uploadFile) throws IOException {
         if(uploadFile.isEmpty())
@@ -42,18 +62,16 @@ public class FileUploadController {
 //        storageService.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
 //        Storage.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
 
-        //Проверяем - есть ли каталог для сохранения файла
-        Path uploadDir=Path.of(UPLOAD_DIR);
-        Files.createDirectories(uploadDir);
+        //Local uploading
+       localFileService.uploadFile("avatar", uploadFile);
 
-        //Сохраняем файл в нужной директории
-        //Настроим полный путь к месту хранения файла
-        Path filePath=uploadDir.resolve(uploadFile.getOriginalFilename());
+        // SOLID
 
-        Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-
-
+//        FileUploadServiceInterface service = minioFileService;
+//        service.uploadFile("avatar", uploadFile);
+//
+//        service = localFileService;
+//        service.uploadFile("avatar", uploadFile);
 
         return "Ok";
     }

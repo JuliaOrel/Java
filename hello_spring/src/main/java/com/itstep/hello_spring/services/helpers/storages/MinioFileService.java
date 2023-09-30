@@ -15,7 +15,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 @Service
-public class MinioFileService {
+public class MinioFileService implements FileUploadServiceInterface{
     private final MinioClient minioClient;
     public MinioFileService(MinioClient minioClient) {
         this.minioClient = minioClient;
