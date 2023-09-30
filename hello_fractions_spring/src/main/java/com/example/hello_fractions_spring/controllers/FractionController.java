@@ -26,4 +26,24 @@ public class FractionController {
         fraction1.add(fraction2);
         return fraction1;
     }
+
+    @PostMapping("/subtract")
+    public Fraction subtractFractions(@RequestBody FractionRequest request) {
+        Fraction fraction1 = request.getFraction1();
+        Fraction fraction2 = request.getFraction2();
+
+        fraction1.subtract(fraction2);
+
+        return fraction1;
+    }
+
+    @PostMapping("/multiply")
+    public Fraction multiplyFractions(@RequestBody FractionRequest request) {
+        Fraction fraction1 = request.getFraction1();
+        Fraction fraction2 = request.getFraction2();
+
+        fraction1.multiply(fraction2);
+
+        return fraction1;
+    }
 }

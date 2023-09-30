@@ -34,4 +34,33 @@ public class Fraction {
 
         reduce(); // Сокращаем полученную дробь
     }
+
+    public void subtract(Fraction other) {
+        int commonDenominator = this.denominator * other.denominator;
+        int newNumerator = (this.numerator * other.denominator) - (other.numerator * this.denominator);
+
+        this.numerator = newNumerator;
+        this.denominator = commonDenominator;
+
+        reduce(); // Сокращаем полученную дробь
+    }
+
+    public void multiply(Fraction other) {
+        this.numerator *= other.numerator;
+        this.denominator *= other.denominator;
+
+        reduce(); // Сокращаем полученную дробь
+    }
+
+    public void divide(Fraction other) {
+        if (other.numerator != 0) { // Проверка деления на ноль
+            this.numerator *= other.denominator;
+            this.denominator *= other.numerator;
+
+            reduce(); // Сокращаем полученную дробь
+        } else {
+            // Обработка деления на ноль
+            // Можно выбросить исключение или вернуть специальное значение
+        }
+    }
 }
