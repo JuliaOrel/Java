@@ -59,8 +59,7 @@ public class Fraction {
 
             reduce(); // Сокращаем полученную дробь
         } else {
-            // Обработка деления на ноль
-            // Можно выбросить исключение или вернуть специальное значение
+            throw new ArithmeticException("Division by zero is not allowed.");
         }
     }
 }
