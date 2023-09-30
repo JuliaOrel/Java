@@ -1,7 +1,6 @@
 package com.itstep.hello_spring.controllers;
 
-import com.itstep.hello_spring.services.helpers.storages.LocalFileService;
-import com.itstep.hello_spring.services.helpers.storages.MinioFileService;
+import com.itstep.hello_spring.services.helpers.storages.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -20,15 +19,16 @@ import java.nio.file.Path;
 public class FileUploadController {
     final MinioFileService minioFileService;
     final LocalFileService localFileService;
+    final StorageService storageService;
 
 
-    public FileUploadController (MinioFileService minioFileService, LocalFileService localFileService){
+    public FileUploadController (MinioFileService minioFileService, LocalFileService localFileService, StorageService storageService){
 
         this.minioFileService = minioFileService;
         this.localFileService = localFileService;
         // Этот сервис является оболочкой для других
         // такоим образом - мне не важно будет в коде вообще количество хранилищ
-        //this.storageService = storageService;
+        this.storageService = storageService;
     }
     @Value("${upload.dir}")
     private String UPLOAD_DIR;
@@ -58,12 +58,23 @@ public class FileUploadController {
 
 
         // Версия загрузки в MinIO
-       minioFileService.uploadFile("avatar", uploadFile);
-//        storageService.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
-//        Storage.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
+        //minioFileService.uploadFile("avatar", uploadFile);
+        //storageService.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
+        Storage.to(StorageTypes.minio).uploadFile("avatar",uploadFile);
 
-        //Local uploading
-       localFileService.uploadFile("avatar", uploadFile);
+        // Версия загрузки локально
+        //localFileService.uploadFile("avatar", uploadFile);
+        //storageService.to(StorageTypes.local).uploadFile("avatar",uploadFile);
+       // Storage.to(StorageTypes.local).uploadFile("avatar",uploadFile);
+
+        // Загрузка в хранилище по умолчанию
+        //storageService.uploadFile("avatar", uploadFile);
+        //Storage.uploadFile("avatar", uploadFile);
+
+        //Storage.uploadFile("avatar", uploadFile);
+        // Storage.to("MinIo").uploadFile(...)
+        // Storage.to("Local").uploadFile(...)
+        // Storage.uploadFile(...) - по умолчанию
 
         // SOLID
 
@@ -72,6 +83,7 @@ public class FileUploadController {
 //
 //        service = localFileService;
 //        service.uploadFile("avatar", uploadFile);
+
 
         return "Ok";
     }
