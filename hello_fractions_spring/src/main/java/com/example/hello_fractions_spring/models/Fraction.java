@@ -15,4 +15,13 @@ public class Fraction {
     public boolean isProper() {
         return numerator < denominator;
     }
+    public void reduce() {
+        int gcd = gcd(numerator, denominator);
+        numerator /= gcd;
+        denominator /= gcd;
+    }
+
+    private int gcd(int a, int b) {
+        return b == 0 ? a : gcd(b, a % b);
+    }
 }
