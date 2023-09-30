@@ -1,7 +1,6 @@
 package com.itstep.hello_spring.controllers;
 
-import com.itstep.hello_spring.services.helpers.MinioFileService;
-import com.itstep.hello_spring.services.storages.LocalFileService;
+import com.itstep.hello_spring.services.helpers.storages.MinioFileService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

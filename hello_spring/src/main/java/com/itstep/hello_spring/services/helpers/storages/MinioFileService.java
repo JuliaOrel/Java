@@ -1,4 +1,4 @@
-package com.itstep.hello_spring.services.helpers;
+package com.itstep.hello_spring.services.helpers.storages;
 
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
