@@ -1,7 +1,7 @@
-package com.itstep.hello_spring.controllers;
+package com.itstep.hello_spring.controllers.toyota;
 
 import com.itstep.hello_spring.models.toyota.ToyotaModel;
-import com.itstep.hello_spring.repositories.ToyotaModelRepository;
+import com.itstep.hello_spring.repositories.toyota.ToyotaModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

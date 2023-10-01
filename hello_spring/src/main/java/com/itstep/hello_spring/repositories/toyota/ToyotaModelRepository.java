@@ -1,4 +1,4 @@
-package com.itstep.hello_spring.repositories;
+package com.itstep.hello_spring.repositories.toyota;
 
 import com.itstep.hello_spring.models.toyota.ToyotaModel;
 import org.springframework.data.jpa.repository.JpaRepository;
