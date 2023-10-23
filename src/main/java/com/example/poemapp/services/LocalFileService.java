@@ -14,7 +14,7 @@ public class LocalFileService implements FileUploadServiceInterface {
     @Value("${upload.dir}")
     private String UPLOAD_DIR;
     @Override
-    public String uploadFile(String bucketName, MultipartFile uploadFile) {
+    public String uploadFile(String bucketName, MultipartFile file) {
         Path filePath;
         try{
             // Создаю папки
@@ -25,8 +25,8 @@ public class LocalFileService implements FileUploadServiceInterface {
             Files.createDirectories(fileUploadDir);
 
             // Копирую файл
-            filePath = fileUploadDir.resolve(uploadFile.getOriginalFilename());
-            Files.copy(uploadFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            filePath = fileUploadDir.resolve(file.getOriginalFilename());
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
             // return filePath.toString();
         } catch(Exception e){
             throw new RuntimeException(e);

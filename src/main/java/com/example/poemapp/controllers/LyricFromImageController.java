@@ -24,14 +24,14 @@ public class LyricFromImageController {
 //    private ChatGPTService chatGPTService;
     @PostMapping("/upload")
     public String upload(
-            @RequestParam("file") MultipartFile uploadFile
-    ) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+            @RequestParam("file") MultipartFile file
+    ) {
         // Проверяем - а прислал ли нам пользователь файл вообще
-        if (uploadFile.isEmpty()) {
+        if (file.isEmpty()) {
             return " No File in Request";
         }
 
-        String filePath = localFileService.uploadFile("ai", uploadFile);
+        String filePath = localFileService.uploadFile("ai", file);
 //        String question = azureVisionService.analyzeImageFromFile(filePath);
 //        String lyric = chatGPTService.SendQuestion(question + "\n на русском языке");
         return "some string";
