@@ -106,4 +106,25 @@
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"
         android:text="+" />
+
+<!--    Row 5-->
+
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:text="0"
+        android:layout_columnSpan="2"/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:text="."/>
+    <Button
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:text="="/>
+
+
 </GridLayout>
