@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="RedButton">
+        <item name="android:background">@drawable/red_button_background</item>
+    </style>
+</resources>
