@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_frame_layout);
+        setContentView(R.layout.calculator_layout);
 //        MyRegisterFormValidator validator=new MyRegisterFormValidator(this);
 //        ((EditText)findViewById(R.id.inpEmail)).addTextChangedListener(validator);
 //        ((EditText)findViewById(R.id.inpPassword)).addTextChangedListener(validator);
