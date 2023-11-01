@@ -21,4 +21,14 @@ public class JobsConfig {
         executor.initialize();
         return executor;
     }
+    @Bean(name="gptExecutor")
+    public Executor gptExecutor(){
+        ThreadPoolTaskExecutor executor=new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(4);
+        executor.setMaxPoolSize(16);
+        executor.setQueueCapacity(32);
+        executor.setThreadNamePrefix("GPT - ");
+        executor.initialize();
+        return executor;
+    }
 }

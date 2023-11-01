@@ -1,5 +1,6 @@
 package com.example.poemapp.controllers;
 
+import com.example.poemapp.jobs.AzureJob;
 import com.example.poemapp.services.AzureJobService;
 import com.example.poemapp.services.AzureVisionService;
 import com.example.poemapp.services.ChatGPTService;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 
 @RestController
@@ -40,10 +45,11 @@ public class LyricFromImageController {
         return lyric;
     }
     @PostMapping("/job")
-    public String job(@RequestParam("file") MultipartFile file){
+    public String job(@RequestParam("file") MultipartFile file) throws ExecutionException, InterruptedException {
         String filePath = localFileService.uploadFile("ai", file);
-        //String cratedAt = (new Date()).toString();
-        azureJobService.pushAzureJob(filePath);
-        return "Ok";
+
+        Future<UUID> futureId= azureJobService.pushAzureJob(filePath);
+        UUID id=futureId.get();
+        return "Task number "+id+" was created";
     }
 }

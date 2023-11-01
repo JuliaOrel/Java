@@ -40,6 +40,7 @@ public class ChatGPTService {
             // Создание JSON-запроса
             ChatGptRequest chatGptRequest = new ChatGptRequest();
             chatGptRequest.model = "gpt-3.5-turbo";
+            //chatGptRequest.model="text-davinci-002";
             ChatMessage message = new ChatMessage();
             message.role = "user";
             message.content = question;
