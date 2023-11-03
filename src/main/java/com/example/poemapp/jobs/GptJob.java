@@ -26,7 +26,8 @@ public class GptJob implements Runnable{
             throw new RuntimeException(e);
         }
 
-        chatGPTService.SendQuestion(this.question);
-        System.out.println("Job № "+this.id+" was executed");
+        String poem=chatGPTService.SendQuestion(this.question);
+        //сокет-соединение: возвращаю стих
+        System.out.println("GPTJob № "+this.id+" was executed"+poem);
     }
 }

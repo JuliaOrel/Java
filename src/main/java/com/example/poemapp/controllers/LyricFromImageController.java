@@ -48,8 +48,9 @@ public class LyricFromImageController {
     public String job(@RequestParam("file") MultipartFile file) throws ExecutionException, InterruptedException {
         String filePath = localFileService.uploadFile("ai", file);
 
-        Future<UUID> futureId= azureJobService.pushAzureJob(filePath);
-        UUID id=futureId.get();
+        UUID id=UUID.randomUUID();
+        azureJobService.pushAzureJob(filePath, id);
+
         return "Task number "+id+" was created";
     }
 }

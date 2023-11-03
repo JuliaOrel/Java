@@ -12,15 +12,17 @@ import java.util.concurrent.Future;
 @Service
 public class ChatGPTJobService {
     private ChatGPTService chatGPTService;
+    //UUID id;
     public ChatGPTJobService (ChatGPTService chatGPTService) {
         this.chatGPTService=chatGPTService;
+        //this.id=id;
     }
 
     @Async("gptExecutor")
-    public Future<UUID> pushGptJob(String question){
-        UUID id=UUID.randomUUID();
+    public void pushGptJob(String question, UUID id){
+
         GptJob job= new GptJob(chatGPTService, question, id);
         job.run();
-        return new AsyncResult<>(id);
+        //return new AsyncResult<>(id);
     }
 }

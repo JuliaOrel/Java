@@ -8,17 +8,17 @@ import java.util.UUID;
 
 public class AzureJob implements Runnable{
     private final AzureVisionService azureVisionService;
-    private final ChatGPTService chatGPTService;
+    private final ChatGPTJobService chatGPTJobService;
     private final String filePath;
     private UUID id;
 
     public AzureJob(
             AzureVisionService azureVisionService,
-            ChatGPTService chatGPTService,
+            ChatGPTJobService chatGPTJobService,
             String filePath, UUID id
     ){
         this.azureVisionService=azureVisionService;
-        this.chatGPTService=chatGPTService;
+        this.chatGPTJobService=chatGPTJobService;
         this.filePath=filePath;
         this.id=id;
 
@@ -30,9 +30,10 @@ public class AzureJob implements Runnable{
         }catch (InterruptedException e){
             throw new RuntimeException(e);
         }
-        azureVisionService.analyzeImageFromFile(this.filePath);
-        //chatGPTService.SendQuestion();
-        System.out.println("Job № "+this.id+" was executed");
+        String question=azureVisionService.analyzeImageFromFile(this.filePath);
+        System.out.println(question);
+        chatGPTJobService.pushGptJob(question, this.id);
+        System.out.println("AzureJob № "+this.id+" was executed");
 
     }
 }
