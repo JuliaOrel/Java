@@ -6,8 +6,9 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:rowCount="3"
-        android:columnCount="5">
+        android:id="@+id/gridLayout"
+        android:rowCount="4"
+        android:columnCount="4">
 
         <Button android:text="1" />
         <Button android:text="2" />
