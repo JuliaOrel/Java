@@ -35,7 +35,7 @@ public class GptJob implements Runnable{
         System.out.println("GPTJob № "+this.jobId+" was executed"+poem);
         ChatMessage mes=new ChatMessage();
         mes.sender="GPTJob";
-        mes.content=" № "+this.jobId+" was executed";
+        mes.content=" № "+this.jobId+" was executed: "+poem;
         mes.jobId=this.jobId;
 
         webSocketService.sendMessageAboutJob(jobId, mes);
