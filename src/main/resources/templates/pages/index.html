@@ -1,45 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebSocket Chat</title>
-    <style>
-        /* Стили для чатика */
-        #chat-container {
-            width: 300px;
-            margin: 0 auto;
-            padding: 10px;
-            border: 1px solid #ccc;
-        }
-
-        #messages {
-            height: 200px;
-            overflow-y: scroll;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 5px;
-        }
-    </style>
+    <title>Title</title>
 </head>
 <body>
-<div id="chat-container">
-    <h2>WebSocket Chat</h2>
-    <div id="messages"></div>
-    <input type="text" id="sender" placeholder="Your Name">
-    <input type="text" id="message" placeholder="Type your message">
-    <button onclick="sendMessage()">Send</button>
-</div>
-
+<form id="fileapp">
+    <input type="file" name="file">
+    <input type="submit">
+</form>
+<div id="messages"></div>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-
 <script>
-    // var webSocket = new WebSocket("ws://localhost:8080/ws"); // Замените на URL вашего WebSocket сервера
-    var webSocket = new SockJS("/ws"); // Замените на URL вашего WebSocket сервера
+    let webSocket = new SockJS("/ws"); // Замените на URL вашего WebSocket сервера
 
     webSocket.onopen = function () {
         console.log('Connected to WebSocket');
@@ -48,41 +22,44 @@
     webSocket.onerror = function (error) {
         console.error('WebSocket Error: ' + error);
     };
-
-    webSocket.onmessage = function (e) {
-        var msg = JSON.parse(e.data);
-        console.log("webSocket Message: ")
-        console.log(msg);
-    };
-
-    var stompClient = Stomp.over(webSocket);
+    let stompClient = Stomp.over(webSocket);
 
     stompClient.connect({}, function (frame) {
         console.log('Connected stompClient to WebSocket');
 
-        stompClient.subscribe('/topic/messages', function (message) {
-            var msg = JSON.parse(message.body);
-            console.log("stompClient Message: ");
-            console.log(msg);
+    let fileapp=document.getElementById('fileapp');
+    fileapp.onsubmit=(e)=>{
+        e.preventDefault();
+        const formData = new FormData(fileapp);
+        fetch('/job', {
+            method: "POST",
+            body: formData,
+        })
+            .then (res=>{
+                //console.log(res);
+                return res.text();
+            })
+            .then (jobId=>{
 
-            let p = document.createElement("p");
-            p.innerText = msg.sender + " : " + msg.content;
-            document.getElementById("messages").appendChild(p);
+                jobId = jobId.replace('"', '');
+                jobId = jobId.replace('"', '');
+                console.log(jobId);
+                stompClient.subscribe('/topic/' + jobId ,  function (message) {
+                    let msg = JSON.parse(message.body);
+                    console.log(msg);
 
-        });
-    });
+                    let p = document.createElement("p");
+                    p.innerText = msg.sender + " : " + msg.content;
+                    document.getElementById("messages").appendChild(p);
 
-    function sendMessage() {
-        var sender = document.getElementById("sender").value;
-        var message = document.getElementById("message").value;
-        var chatMessage = {
-            content: message,
-            sender: sender
-        };
-        console.log(chatMessage);
-        stompClient.send("/app/chat", {}, JSON.stringify(chatMessage));
-        document.getElementById("message").value = ""; // Очистить поле ввода сообщения
+                })
+
+            })
+        return false;
     }
+    })
+
+
 </script>
 </body>
 </html>

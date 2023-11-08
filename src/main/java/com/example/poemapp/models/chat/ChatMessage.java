@@ -2,8 +2,11 @@ package com.example.poemapp.models.chat;
 
 import lombok.Data;
 
+import java.util.UUID;
+
 @Data
 public class ChatMessage {
-    private String content;
-    private String sender;
+    public String content;
+    public String sender;
+    public UUID jobId;
 }

@@ -1,24 +1,15 @@
 package com.example.poemapp.controllers;
 
-import com.example.poemapp.jobs.AzureJob;
-import com.example.poemapp.services.AzureJobService;
-import com.example.poemapp.services.AzureVisionService;
-import com.example.poemapp.services.ChatGPTService;
-import com.example.poemapp.services.LocalFileService;
+import com.example.poemapp.models.chat.ChatMessage;
+import com.example.poemapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-
 
 
 @RestController
@@ -31,6 +22,8 @@ public class LyricFromImageController {
     private AzureJobService azureJobService;
     @Autowired
     private ChatGPTService chatGPTService;
+    @Autowired
+    private WebSocketService webSocketService;
 
 //    @GetMapping("/")
 //    public String index() {
@@ -51,12 +44,13 @@ public class LyricFromImageController {
         return lyric;
     }
     @PostMapping("/job")
-    public String job(@RequestParam("file") MultipartFile file) throws ExecutionException, InterruptedException {
+    public UUID job(@RequestParam("file") MultipartFile file) throws ExecutionException, InterruptedException {
         String filePath = localFileService.uploadFile("ai", file);
 
-        UUID id=UUID.randomUUID();
-        azureJobService.pushAzureJob(filePath, id);
+        UUID jobId=UUID.randomUUID();
+        //UUID jobId= UUID.fromString("b24d1b0e-a6ba-439e-98e4-5ac71afd9c78");
+        azureJobService.pushAzureJob(filePath, jobId);
 
-        return "Task number "+id+" was created";
+        return jobId;
     }
 }

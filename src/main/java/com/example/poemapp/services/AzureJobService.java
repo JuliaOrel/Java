@@ -12,16 +12,19 @@ import java.util.concurrent.Future;
 public class AzureJobService {
     private AzureVisionService azureVisionService;
     private final ChatGPTJobService chatGPTJobService;
+    private WebSocketService webSocketService;
 
-    public AzureJobService (AzureVisionService azureVisionService, ChatGPTJobService chatGPTJobService) {
+    public AzureJobService (AzureVisionService azureVisionService, ChatGPTJobService chatGPTJobService,
+                            WebSocketService webSocketService) {
         this.azureVisionService=azureVisionService;
         this.chatGPTJobService=chatGPTJobService;
+        this.webSocketService=webSocketService;
     }
 
     @Async("azureExecutor")
-    public void pushAzureJob(String filePath, UUID id){
+    public void pushAzureJob(String filePath, UUID jobId){
 
-        AzureJob job= new AzureJob(azureVisionService, chatGPTJobService,filePath,id);
+        AzureJob job= new AzureJob(azureVisionService, chatGPTJobService, webSocketService, filePath, jobId);
         //System.out.println("hello");
         job.run();
         //return new AsyncResult<>(id);
