@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Poem
+  description: Мои операции
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /upload:
+    post:
+      tags:
+        - Work with picture
+      summary: Upload picture
+      description: upload picture to get poem
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            text/plain:
+              schema:
+                type: string
+            schema:
+              $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+            type:
+              type: string
+            param:
+              type: string
+            code:
+              type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'

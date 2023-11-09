@@ -3,6 +3,7 @@ package com.example.poemapp.controllers;
 import com.example.poemapp.models.chat.ChatMessage;
 import com.example.poemapp.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8088", maxAge = 3600)
 public class LyricFromImageController {
     @Autowired
     private LocalFileService localFileService;
