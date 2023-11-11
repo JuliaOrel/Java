@@ -1,26 +1,20 @@
 package com.example.myapplication;
 
-import static java.lang.Math.log;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.content.res.Resources;
 
 import com.example.myapplication.listeners.MyBtnOnclickListener;
-import com.example.myapplication.textWatchers.MyTextWatcher;
-import com.example.myapplication.validations.MyRegisterFormValidator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_grid_layout);
         gridLayout=findViewById(R.id.gridLayout);
 
-        int numRows=4;
-        int numCols=4;
+        int numRows=3;
+        int numCols=3;
         createGridView(numRows, numCols);
 
     }
@@ -43,15 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < numCols; col++) {
-                ImageView imageView = new ImageView(this);
-                // Пример загрузки изображения из ресурсов
-                imageView.setImageResource(R.drawable.koran);
-                // Другие настройки для imageView
+                String imageName = "image_" + (row * numCols + col);
 
-                // Добавление imageView в gridLayout
+                // Получение идентификатора ресурса для изображения
+                int imageResource=getResources().getIdentifier(imageName, "drawable",  getPackageName());
+                ImageView imageView = new ImageView(this);
+                imageView.setImageResource(imageResource);
+
+
                 GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-                params.rowSpec = GridLayout.spec(row, 1f);
-                params.columnSpec = GridLayout.spec(col, 1f);
+                params.rowSpec = GridLayout.spec(row);
+                params.columnSpec = GridLayout.spec(col);
+                params.setMargins(0, 0, 10, 10);
                 imageView.setLayoutParams(params);
 
                 gridLayout.addView(imageView);
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = new ConstraintLayout(this);
 
         ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.koran);
+        imageView.setImageResource(R.drawable.image_0);
 
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
                 (ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
