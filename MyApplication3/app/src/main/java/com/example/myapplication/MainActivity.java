@@ -18,6 +18,8 @@ import com.example.myapplication.listeners.MyBtnOnclickListener;
 
 public class MainActivity extends AppCompatActivity {
 
+private  static final int REQUEST_INTERNET_PERMISSION=1;
+
     private GridLayout gridLayout;
     @SuppressLint("MissingInflatedId")
     @Override
