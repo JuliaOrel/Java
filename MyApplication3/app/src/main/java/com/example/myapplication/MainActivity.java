@@ -3,8 +3,12 @@ package com.example.myapplication;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,13 +16,64 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.content.res.Resources;
+import com.squareup.picasso.Picasso;
 
 import com.example.myapplication.listeners.MyBtnOnclickListener;
 
 public class MainActivity extends AppCompatActivity {
+    private  static final int REQUEST_INTERNET_PERMISSION=1;
+    /**
+     * Перед каждой операцией, связанной с запросом приложения в сеть, нужно вызывать этот метод
+     */
+    public void checkPermissionInternet(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) == PackageManager.PERMISSION_GRANTED) {
+            // Разрешение на доступ к интернету уже предоставлено. Вы можете выполнять операции, требующие доступ к интернету, здесь.
+        } else {
+            // Разрешение на доступ к интернету не предоставлено. Запросите его у пользователя.
+            ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.INTERNET }, REQUEST_INTERNET_PERMISSION);
+        }
+    }
 
-private  static final int REQUEST_INTERNET_PERMISSION=1;
+    protected void getImageFromUrlByGlide(){
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
+
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
+                (ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
+
+        String imageUrl = "https://www.iconsdb.com/icons/preview/orange/cocktail-3-xxl.png";
+
+        ImageView imageView = new ImageView(this);
+
+//        Glide.with(this)
+//                .load(imageUrl)
+//                .into(imageView);
+
+        imageView.setLayoutParams(layoutParams);
+        constraintLayout.addView(imageView);
+        setContentView(constraintLayout);
+    }
+
+    //Я должна импортировать Пикассо в файле Gradle Scripts/build.gradle.kts(Module:app)!!!!!
+    protected void getImageFromUrlByPicasso(){
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
+
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams
+                (ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
+
+        String imageUrl = "https://www.iconsdb.com/icons/preview/orange/cocktail-3-xxl.png";
+
+        ImageView imageView = new ImageView(this);
+
+        Picasso.get()
+                .load(imageUrl)
+                .into(imageView);
+
+        imageView.setLayoutParams(layoutParams);
+        constraintLayout.addView(imageView);
+        setContentView(constraintLayout);
+    }
+
+
 
     private GridLayout gridLayout;
     @SuppressLint("MissingInflatedId")
@@ -30,7 +85,9 @@ private  static final int REQUEST_INTERNET_PERMISSION=1;
 
         int numRows=3;
         int numCols=3;
-        createGridView(numRows, numCols);
+        //createGridView(numRows, numCols);
+        checkPermissionInternet();
+        getImageFromUrlByPicasso();
 
     }
 
@@ -58,9 +115,6 @@ private  static final int REQUEST_INTERNET_PERMISSION=1;
         }
     }
 
-    protected void createMemoryGamePad(){
-
-    }
 
 
     protected void createMemoryGamePadOneIcon() {
