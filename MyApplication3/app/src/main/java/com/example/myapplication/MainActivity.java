@@ -12,16 +12,134 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.myapplication.adapters.StateAdapter;
+import com.example.myapplication.models.State;
 import com.squareup.picasso.Picasso;
 
 import com.example.myapplication.listeners.MyBtnOnclickListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private  static final int REQUEST_INTERNET_PERMISSION=1;
+
+    //Countries for drpdown list
+   // String[] countries={"Brazil", "Columbia", "USA", "Mexico", "Chili"};
+
+    private GridLayout gridLayout;
+    @SuppressLint("MissingInflatedId")
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        //buildListView();
+        //buildSpinner();
+        buildListViewCustomAdapter();
+
+        //setContentView(R.layout.main_grid_layout);
+        //checkPermissionInternet();
+
+        //gridLayout=findViewById(R.id.gridLayout);
+
+//        int numRows=3;
+//        int numCols=3;
+//        //createGridView(numRows, numCols);
+
+//        getImageFromUrlByPicasso();
+
+    }
+
+    void buildListViewCustomAdapter(){
+        // получаем элемент ListView
+        // Обольше похож на ul / ol элементы html
+        ListView countriesList = findViewById(R.id.countriesList);
+
+        List<State> states= new ArrayList<>();
+        states.add(new State("England", "London", R.drawable.en));
+        states.add(new State("Ukraine", "Kyiv", R.drawable.ua));
+
+        StateAdapter adapter = new StateAdapter(this, states);
+
+        // устанавливаем для списка адаптер
+        countriesList.setAdapter(adapter);
+
+        // adapter.loadDataFromServer();
+
+    }
+
+    void buildSpinner(){
+        Spinner spinner = findViewById(R.id.spinner);
+
+        // получаем ресурс
+        String[] countries = getResources().getStringArray(R.array.countries);
+
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, countries);
+        // Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                String selectedItem = countries[position];
+                //toast("Spinner: " + selectedItem);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //toast("Spinner: Nothing Selected" );
+            }
+        });
+
+        // Применяем адаптер к элементу spinner
+        spinner.setAdapter(adapter);
+
+    }
+    void buildListView() {
+        // получаем элемент ListView
+        ListView countriesList = findViewById(R.id.countriesList);
+        String[] countries = getResources().getStringArray(R.array.countries);
+        // создаем адаптер
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,
+                android.R.layout.simple_list_item_1, countries);
+        countriesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                String selectedItem = countries[position];
+                view.setBackgroundColor(R.color.black);
+                //toast("ListView: " + selectedItem);
+            }
+        });
+        // устанавливаем для списка адаптер
+        countriesList.setAdapter(adapter);
+    }
+
+//    void buildListViewCustomAdapter(){
+//        // получаем элемент ListView
+//        // Обольше похож на ul / ol элементы html
+//        ListView countriesList = findViewById(R.id.countriesList);
+//
+//        List<State> states= new ArrayList<>();
+//        states.add(new State("England", "London", R.drawable.en));
+//        states.add(new State("Ukraine", "Kyiv", R.drawable.ua));
+//
+//        StateAdapter adapter = new StateAdapter(this, states);
+//
+//        // устанавливаем для списка адаптер
+//        countriesList.setAdapter(adapter);
+//
+//        // adapter.loadDataFromServer();
+//
+//    }
     /**
      * Перед каждой операцией, связанной с запросом приложения в сеть, нужно вызывать этот метод
      */
@@ -75,21 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private GridLayout gridLayout;
-    @SuppressLint("MissingInflatedId")
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_grid_layout);
-        gridLayout=findViewById(R.id.gridLayout);
 
-        int numRows=3;
-        int numCols=3;
-        //createGridView(numRows, numCols);
-        checkPermissionInternet();
-        getImageFromUrlByPicasso();
-
-    }
 
     private void createGridView(int numRows, int numCols) {
         gridLayout.removeAllViews();
@@ -191,22 +295,22 @@ public class MainActivity extends AppCompatActivity {
     //}
 
     //@Override
-    protected void onCreateBtn(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Button btn=(Button) findViewById(R.id.btnClickMe);
-        btn.setText("My new btn text");
-
-        //First variant
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.d("btn","Click on");
-//            }
-//        });
-        //Second variant-when I describe listener separately
-        btn.setOnClickListener(new MyBtnOnclickListener(this));
-    }
+//    protected void onCreateBtn(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        Button btn=(Button) findViewById(R.id.btnClickMe);
+//        btn.setText("My new btn text");
+//
+//        //First variant
+////        btn.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                Log.d("btn","Click on");
+////            }
+////        });
+//        //Second variant-when I describe listener separately
+//        btn.setOnClickListener(new MyBtnOnclickListener(this));
+//    }
 
     public void toast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
